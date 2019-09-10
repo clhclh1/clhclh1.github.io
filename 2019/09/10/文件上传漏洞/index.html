@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+  <title>文件上传漏洞 - MINX&#39;s Blog</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+
+  <link rel="shortcut icon" href="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
+  <meta name="description" content="文件上传漏洞简介文件上传漏洞是web安全中经常遇到的一种漏洞形式，文件上传漏洞就是利用可以上传文件的地方将恶意代码或文件植入到服务器中，再通过URL去访问来执行代码，但是经常会遇到各种限制和过滤，因此就要学会各种姿势来绕过。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件上传漏洞">
+<meta property="og:url" content="http://iminx.cn/2019/09/10/文件上传漏洞/index.html">
+<meta property="og:site_name" content="MINX&#39;s Blog">
+<meta property="og:description" content="文件上传漏洞简介文件上传漏洞是web安全中经常遇到的一种漏洞形式，文件上传漏洞就是利用可以上传文件的地方将恶意代码或文件植入到服务器中，再通过URL去访问来执行代码，但是经常会遇到各种限制和过滤，因此就要学会各种姿势来绕过。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/dorKyEe3J1whmkF.png">
+<meta property="og:updated_time" content="2019-09-10T09:03:24.730Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文件上传漏洞">
+<meta name="twitter:description" content="文件上传漏洞简介文件上传漏洞是web安全中经常遇到的一种漏洞形式，文件上传漏洞就是利用可以上传文件的地方将恶意代码或文件植入到服务器中，再通过URL去访问来执行代码，但是经常会遇到各种限制和过滤，因此就要学会各种姿势来绕过。">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/07/dorKyEe3J1whmkF.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
+  <link rel="stylesheet" href="/css/style.css?v=1568106720289">
+</head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div class="nexmoe-bg" style="background-image: url(https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/4.jpg)"></div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/">
+            <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>4</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+    </ul>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://github.com/clhclh1/clhclh1.github.io" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2019 MINX
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+<script>
+    const getRealPath = (pathname, desc = false) => {
+        if (!pathname) {
+            pathname = window.location.pathname
+        }
+        let names = pathname.split("/")
+        if (desc === false) {
+            for (let i = names.length - 1; i >= 0; --i) {
+                let name = names[i].trim()
+                if (name.length > 0 && name !== "/" && name !== "index.html") {
+                    return name
+                }
+            }
+        } else {
+            for (let i = 0; i < names.length; ++i) {
+                let name = names[i].trim()
+                if (name.length > 0 && name !== "/" && name !== "index.html") {
+                    return name
+                }
+            }
+        }
+        return "/"
+    }
+    let links = document.querySelectorAll('.nexmoe-list-item');
+    let rootRealPath = getRealPath(window.location.pathname, true);
+    for (let link of links) {
+        let linkPath = link.getAttribute("href");
+        if (linkPath && getRealPath(linkPath, true) === rootRealPath) {
+            link.className = "active nexmoe-list-item mdui-list-item mdui-ripple";
+        }
+    }
+</script>
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-tab">
+            <a mdui-drawer="{target: '#drawer', swipe: true}">
+              <i class="mdui-icon material-icons">menu</i>
+            </a>
+          </div>
+        <div class="nexmoe-post">
+    <div class="nexmoe-post-cover"> 
+        
+        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/5.jpg">
+        
+        <h1>文件上传漏洞</h1>
+    </div>
+  <div class="nexmoe-post-meta">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2019年09月10日</a>
+    <a><i class="nexmoefont icon-areachart"></i>448 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 2 分钟</a>
+    
+    
+  </div>
+  <article>
+    <h2 id="文件上传漏洞简介"><a href="#文件上传漏洞简介" class="headerlink" title="文件上传漏洞简介"></a>文件上传漏洞简介</h2><p>文件上传漏洞是web安全中经常遇到的一种漏洞形式，文件上传漏洞就是利用可以上传文件的地方将恶意代码或文件植入到服务器中，再通过URL去访问来执行代码，但是经常会遇到各种限制和过滤，因此就要学会各种姿势来绕过。</p>
+<a id="more"></a>
+<h2 id="常见的限制以及绕过"><a href="#常见的限制以及绕过" class="headerlink" title="常见的限制以及绕过"></a>常见的限制以及绕过</h2><h3 id="客户端验证（前端验证"><a href="#客户端验证（前端验证" class="headerlink" title="客户端验证（前端验证)"></a>客户端验证（前端验证)</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>就是通过前端代码来检查用户所上传的文件的扩展名，对于攻击者来说是极其容易绕过的，因此更多是用于防止用户错误上传文件类型的措施。</p>
+<h4 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h4><ol>
+<li>先上传一个.gif或者.JPG之类的木马，突破前端验证后再通过抓包修改文件后缀名来实现绕过</li>
+<li>通过禁用或者删除JS来实现突破<h3 id="服务端验证"><a href="#服务端验证" class="headerlink" title="服务端验证"></a>服务端验证</h3><h4 id="MIME类型检测"><a href="#MIME类型检测" class="headerlink" title="MIME类型检测"></a>MIME类型检测</h4><h5 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h5>服务端通过检测MIME来限制文件上传的类型，其代码可能如下：<br><code>$_FILES[&#39;flie&#39;][&#39;type&#39;] == &#39;image/jpeg&#39;</code><h5 id="绕过-1"><a href="#绕过-1" class="headerlink" title="绕过"></a>绕过</h5>通过抓包修改Content-Type<br><img src="https://i.loli.net/2019/09/07/dorKyEe3J1whmkF.png" alt="image.png"><h4 id="检查文件内容"><a href="#检查文件内容" class="headerlink" title="检查文件内容"></a>检查文件内容</h4><h5 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h5>检查文件内容是否包含“&lt;? ”、“&lt;?= ”之类的关键字<h5 id="绕过-2"><a href="#绕过-2" class="headerlink" title="绕过"></a>绕过</h5>可以使用短tag绕过，例如<br><code>&lt;script language=&#39;pHp&#39;&gt;phpinfo();&lt;/script&gt;</code><h4 id="检查文件名"><a href="#检查文件名" class="headerlink" title="检查文件名"></a>检查文件名</h4><h5 id="原理-3"><a href="#原理-3" class="headerlink" title="原理"></a>原理</h5>检查文件名是否包含.php<h5 id="绕过-3"><a href="#绕过-3" class="headerlink" title="绕过"></a>绕过</h5></li>
+<li>大小写绕过，如.PhP</li>
+<li>使用其他可能被APache解析的后缀，如（.php4/.php5/.php7/.pht/.phtml）</li>
+<li>在Apache环境下上传.htaccess文件使其它后缀也被解析为php脚本执行。.htaccess文件内容为：<br><code>AddType application/x-http-php .jpg</code></li>
+<li>%00截断，操作方法：上传shell.jpg，Burp抓包，将文件名改为shell.php%00.jpg，选中%00，进行url-decode。</li>
+</ol>
+
+  </article>
+  
+    
+<div class="nexmoe-post-copyright">
+<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+<strong>本文作者：</strong>MINX<br>
+<strong>本文链接：</strong><a href="http://iminx.cn/2019/09/10/文件上传漏洞/" title="http://iminx.cn/2019/09/10/文件上传漏洞/" target="_blank" rel="noopener">http://iminx.cn/2019/09/10/文件上传漏洞/</a><br>
+
+  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
+
+</div>
+
+
+  
+  <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'nexmoe.github.io',
+        owner: 'nexmoe',
+        admin: 'nexmoe'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+ 
+    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="/js/app.js?v=1568106720271"></script>
+<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>

