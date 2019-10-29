@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql16.png">
 <meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql17.png">
 <meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/sql18.png">
-<meta property="og:updated_time" content="2019-10-20T14:14:30.627Z">
+<meta property="og:updated_time" content="2019-10-29T13:00:30.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sqli-labs">
 <meta name="twitter:description" content="注入语句备忘 查库名：select schema_name from information_schema.schemata 查表名：select table_name from information_schema.tables where table_schema=&amp;#39;库名&amp;#39; 查列名：select column_name from information_schema.colum">
@@ -46,7 +46,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1571749227029">
+  <link rel="stylesheet" href="/css/style.css?v=1572354046543">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -60,9 +60,9 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>文章</span>7</div>
+        <div><span>文章</span>8</div>
         <div><span>标签</span>0</div>
-        <div><span>分类</span>4</div>
+        <div><span>分类</span>5</div>
     </div>
     <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
@@ -89,7 +89,7 @@
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章分类</h3>
     <div class="nexmoe-widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AWD/">AWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Bypass/">Bypass</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL注入/">SQL注入</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文件上传/">文件上传</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AWD/">AWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Bypass/">Bypass</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL注入/">SQL注入</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文件上传/">文件上传</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -158,14 +158,14 @@
         <div class="nexmoe-post">
     <div class="nexmoe-post-cover"> 
         
-        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/3.jpg">
+        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/2.jpg">
         
         <h1>Sqli-labs</h1>
     </div>
   <div class="nexmoe-post-meta">
     <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月12日</a>
-    <a><i class="nexmoefont icon-areachart"></i>2,475 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 11 分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>2,622 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 12 分钟</a>
     
       <a class="nexmoefont icon-appstore-fill -link" href="/categories/SQL注入/">SQL注入</a>
     
@@ -181,7 +181,17 @@
 <li>可将用引号包含的库名，表名转换为十六进制，避免引号被过滤</li>
 <li>数据过多时可以利用limit限制数据数量</li>
 <li>同上也可以用<code>concat</code>链接多个数据成为一条返回结果</li>
-<li>。。。。</li>
+<li>…</li>
+</ol>
+<h1 id="注入类型判断小技巧"><a href="#注入类型判断小技巧" class="headerlink" title="注入类型判断小技巧"></a>注入类型判断小技巧</h1><p>1和1”正常回显，1’报错，判断为字符型，但是还要判断是否有小括号。</p>
+<p>判断小括号有几种方法：</p>
+<ol>
+<li>2’&amp;&amp;’1’=’1<ul>
+<li>若查询语句为where id=’$id’，查询时是where id=’2’&amp;&amp;’1’=’1’，结果是where id=’2’，回显会是id=2。</li>
+<li>若查询语句为where id=(‘$id’)，查询时是where id=(‘2’&amp;&amp;’1’=’1’)，MySQL 将’2’作为了 Bool 值，结果是where id=(‘1’)，回显会是id=1。</li>
+</ul>
+</li>
+<li>1’)||’1’=(‘1<br>若查询语句有小括号正确回显，若无小括号错误回显（无回显）。</li>
 </ol>
 <h1 id="sqli-labs测试"><a href="#sqli-labs测试" class="headerlink" title="sqli-labs测试"></a>sqli-labs测试</h1><h2 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h2><ol>
 <li>构造<code>127.0.0.1/Less-1/?id=1</code>成功返回数据</li>
@@ -428,7 +438,7 @@ print(result)
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<script src="/js/app.js?v=1571749227007"></script>
+<script src="/js/app.js?v=1572354046527"></script>
 <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
 
   

